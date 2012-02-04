@@ -27,6 +27,5 @@ lib2to3_fix_names = set([
     'lib2to3.fixes.fix_types',
     'lib2to3.fixes.fix_ws_comma',
     'lib2to3.fixes.fix_xrange',
-    'lib2to3.fixes.fix_xreadlines',
-    'lib2to3.fixes.fix_zip'
+    'lib2to3.fixes.fix_xreadlines'
 ])
