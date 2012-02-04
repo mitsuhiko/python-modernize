@@ -20,4 +20,5 @@ class FixUnicode(fixer_base.BaseFix):
             touch_import(None, u'six', node)
             new = node.clone()
             new.value = new.value[1:]
+            new.prefix = ''
             node.replace(Call(Name(u'six.u', prefix=node.prefix), [new]))
