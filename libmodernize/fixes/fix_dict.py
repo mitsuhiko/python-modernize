@@ -7,10 +7,10 @@ from lib2to3.fixer_util import touch_import, Name, Call
 bind_warning = "Calls to builtin next() possibly shadowed by global binding"
 
 
-class FixNext(fixer_base.BaseFix):
+class FixDict(fixer_base.BaseFix):
     BM_compatible = True
     PATTERN = """
-    power< base=any+ trailer< '.' attr='next' > trailer< '(' ')' > >
+    power< base=any+ trailer< '.' method=('iterkeys'|'iteritems'|'itervalues') > trailer< '(' ')' > >
     """
 
     order = "pre" # Pre-order tree traversal
@@ -20,7 +20,8 @@ class FixNext(fixer_base.BaseFix):
         base = results.get('base')
         if not base:
             return
+        method = results['method'][0]
         touch_import(None, u'six', node)
         base = [n.clone() for n in base]
         base[0].prefix = u""
-        node.replace(Call(Name(u"six.advance_iterator", prefix=node.prefix), base))
+        node.replace(Call(Name(u"six.%s" % method.value, prefix=node.prefix), base))
