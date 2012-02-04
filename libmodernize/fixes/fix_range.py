@@ -11,7 +11,7 @@ class FixRange(fixer_base.BaseFix):
     order = "pre"
 
     PATTERN = """
-    power< 'range'
+    power< name='range'|'xrange'
         trailer< '('
             arglist< (
                 (not(argument<any '=' any>) any ','
@@ -30,3 +30,4 @@ class FixRange(fixer_base.BaseFix):
 
     def transform(self, node, results):
         touch_import(u'six.moves', u'range', node)
+        results['name'][0].value = 'range'
