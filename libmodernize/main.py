@@ -35,6 +35,9 @@ def main(args=None):
                       help="Write back modified files")
     parser.add_option("-n", "--nobackups", action="store_true", default=False,
                       help="Don't write backups for modified files.")
+    parser.add_option("--future-unicode", action="store_true", default=False,
+                      help="Use unicode_strings future_feature instead of the six.u function "
+                      "(only useful for Python 2.6+).")
 
     fixer_pkg = 'libmodernize.fixes'
     avail_fixes = set(refactor.get_fixers_from_package(fixer_pkg))
@@ -72,6 +75,10 @@ def main(args=None):
 
     # Initialize the refactoring tool
     unwanted_fixes = set(options.nofix)
+    if options.future_unicode:
+        unwanted_fixes.add('libmodernize.fixes.fix_unicode')
+    else:
+        unwanted_fixes.add('libmodernize.fixes.fix_unicode_future')
     explicit = set()
     if options.fix:
         all_present = False
