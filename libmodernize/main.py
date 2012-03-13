@@ -5,7 +5,7 @@ import optparse
 from lib2to3.main import warn, StdoutRefactoringTool
 from lib2to3 import refactor
 
-from libmodernize.fixes import lib2to3_fix_names
+from libmodernize.fixes import lib2to3_fix_names, six_fix_names
 
 
 def main(args=None):
@@ -35,6 +35,8 @@ def main(args=None):
                       help="Write back modified files")
     parser.add_option("-n", "--nobackups", action="store_true", default=False,
                       help="Don't write backups for modified files.")
+    parser.add_option("--no-six", action="store_true", default=False,
+                      help="Exclude fixes that depend on the six package")
 
     fixer_pkg = 'libmodernize.fixes'
     avail_fixes = set(refactor.get_fixers_from_package(fixer_pkg))
@@ -72,6 +74,8 @@ def main(args=None):
 
     # Initialize the refactoring tool
     unwanted_fixes = set(options.nofix)
+    if options.no_six:
+        unwanted_fixes.update(six_fix_names)
     explicit = set()
     if options.fix:
         all_present = False
