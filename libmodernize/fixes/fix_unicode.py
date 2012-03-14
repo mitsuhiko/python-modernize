@@ -8,14 +8,19 @@ _literal_re = re.compile(ur"[uU][rR]?[\'\"]")
 
 class FixUnicode(fixer_base.BaseFix):
     BM_compatible = True
-    PATTERN = "STRING | 'unicode'"
+    PATTERN = """
+        STRING |
+        power< name='unicode'
+            trailer< '(' [any] ')' >
+            any *
+        >
+    """
 
     def transform(self, node, results):
-        if node.type == token.NAME:
+        if 'name' in results:
             touch_import(None, u'six', node)
-            new = node.clone()
-            new.value = u'six.text_type'
-            return new
+            name = results['name']
+            name.replace(Name(u'six.text_type', prefix=name.prefix))
         elif node.type == token.STRING and _literal_re.match(node.value):
             touch_import(None, u'six', node)
             new = node.clone()
