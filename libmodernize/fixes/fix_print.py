@@ -16,8 +16,8 @@ No changes are applied if print_function is imported from __future__
 # Local imports
 from lib2to3 import patcomp, pytree, fixer_base
 from lib2to3.pgen2 import token
-from lib2to3.fixer_util import Name, Call, Comma, String, touch_import
-
+from lib2to3.fixer_util import Name, Call, Comma, String
+from libmodernize import add_future
 
 parend_expr = patcomp.compile_pattern(
               """atom< '(' [atom|STRING|NAME] ')' >"""
@@ -70,7 +70,7 @@ class FixPrint(fixer_base.BaseFix):
                 self.add_kwarg(l_args, u"file", file)
         n_stmt = Call(Name(u"print"), l_args)
         n_stmt.prefix = node.prefix
-        touch_import(u'__future__', u'print_function', node)
+        add_future(node, u'print_function')
         return n_stmt
 
     def add_kwarg(self, l_nodes, s_kwd, n_expr):
