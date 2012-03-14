@@ -5,7 +5,7 @@ import optparse
 from lib2to3.main import warn, StdoutRefactoringTool
 from lib2to3 import refactor
 
-from libmodernize.fixes import lib2to3_fix_names
+from libmodernize.fixes import lib2to3_fix_names, six_fix_names
 
 
 def main(args=None):
@@ -38,6 +38,8 @@ def main(args=None):
     parser.add_option("--future-unicode", action="store_true", default=False,
                       help="Use unicode_strings future_feature instead of the six.u function "
                       "(only useful for Python 2.6+).")
+    parser.add_option("--no-six", action="store_true", default=False,
+                      help="Exclude fixes that depend on the six package")
 
     fixer_pkg = 'libmodernize.fixes'
     avail_fixes = set(refactor.get_fixers_from_package(fixer_pkg))
@@ -79,6 +81,8 @@ def main(args=None):
         unwanted_fixes.add('libmodernize.fixes.fix_unicode')
     else:
         unwanted_fixes.add('libmodernize.fixes.fix_unicode_future')
+    if options.no_six:
+        unwanted_fixes.update(six_fix_names)
     explicit = set()
     if options.fix:
         all_present = False
