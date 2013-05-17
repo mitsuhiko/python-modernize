@@ -39,4 +39,5 @@ six_fix_names = set([
     'libmodernize.fixes.fix_range',
     'libmodernize.fixes.fix_unicode',
     'libmodernize.fixes.fix_zip',
+    'libmodernize.fixes.fix_metaclass'
     ])
