@@ -19,7 +19,8 @@ setup(
         ]
     },
     zip_safe=False,
-    test_suite='tests',
+    tests_require='nose',
+    test_suite='nose.collector',
     classifiers=[
         'License :: OSI Approved :: BSD License',
         'Programming Language :: PHP',
