@@ -4,10 +4,11 @@
 """Fixer for print.
 
 Change:
-    'print'          into 'print()'
-    'print ...'      into 'print(...)'
-    'print ... ,'    into 'print(..., end=" ")'
-    'print >>x, ...' into 'print(..., file=x)'
+    "print"          into "print()"
+    "print ..."      into "print(...)"
+    "print(...)"     not changed
+    "print ... ,"    into "print(..., end=' ')"
+    "print >>x, ..." into "print(..., file=x)"
 
 No changes are applied if print_function is imported from __future__
 
@@ -20,7 +21,7 @@ from lib2to3.fixer_util import Name, Call, Comma, String
 from libmodernize import add_future
 
 parend_expr = patcomp.compile_pattern(
-              """atom< '(' [atom|STRING|NAME] ')' >"""
+              """atom< '(' [arith_expr|atom|power|term|STRING|NAME] ')' >"""
               )
 
 
@@ -38,9 +39,10 @@ class FixPrint(fixer_base.BaseFix):
         bare_print = results.get("bare")
 
         if bare_print:
-            # Special-case print all by itself
+            # Special-case print all by itself.
             bare_print.replace(Call(Name(u"print"), [],
                                prefix=bare_print.prefix))
+            add_future(node, u'print_function')
             return
         assert node.children[0] == Name(u"print")
         args = node.children[1:]
@@ -70,6 +72,10 @@ class FixPrint(fixer_base.BaseFix):
                 self.add_kwarg(l_args, u"file", file)
         n_stmt = Call(Name(u"print"), l_args)
         n_stmt.prefix = node.prefix
+
+        # Note that there are corner cases where adding this future-import is
+        # incorrect, for example when the file also has a 'print ()' statement
+        # that was intended to print "()".
         add_future(node, u'print_function')
         return n_stmt
 
