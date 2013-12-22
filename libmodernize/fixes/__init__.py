@@ -1,6 +1,3 @@
-import sys
-from lib2to3 import refactor
-
 
 lib2to3_fix_names = set([
     'lib2to3.fixes.fix_apply',
