@@ -11,7 +11,7 @@ class FixZip(fixer_base.BaseFix):
     order = "pre"
 
     PATTERN = """
-    power< 'map'
+    power< 'zip'
         trailer< '('
             arglist< any+ >
         ')' >
