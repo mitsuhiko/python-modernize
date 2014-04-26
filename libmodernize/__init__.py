@@ -12,12 +12,12 @@ def check_future_import(node):
     node = node.children[0]
     # now node is the import_from node
     if not (node.type == syms.import_from and
-            node.type == token.NAME and
+            node.children[1].type == token.NAME and
             node.children[1].value == u'__future__'):
         return set()
     node = node.children[3]
     # now node is the import_as_name[s]
-    print(python_grammar.number2symbol[node.type])
+    # print(python_grammar.number2symbol[node.type])
     if node.type == syms.import_as_names:
         result = set()
         for n in node.children:
