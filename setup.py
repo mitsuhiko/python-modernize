@@ -1,13 +1,19 @@
-import os
+import os, re
 from setuptools import setup
 
 readme = open(os.path.join(os.path.dirname(__file__), 'README'), 'r').read()
+
+module_file = open(os.path.join(os.path.dirname(__file__), 'libmodernize', '__init__.py'), 'r').read()
+version_match = re.search(r"__version__ = ['\"]([^'\"]*)['\"]", module_file, re.M)
+if not version_match:
+    raise Exception("couldn't find version number")
+version = version_match.group(1)
 
 setup(
     name='modernize',
     author='Armin Ronacher',
     author_email='armin.ronacher@active-4.com',
-    version='0.1',
+    version=version,
     url='http://github.com/mitsuhiko/python-modernize',
     packages=['libmodernize', 'libmodernize.fixes'],
     description='A hack on top of 2to3 for modernizing code for '
