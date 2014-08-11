@@ -26,10 +26,10 @@ foo'''
 """
 
 def test_unicode_six():
-    check_on_input(UNICODE_LITERALS, UNICODE_LITERALS_six)
+    check_on_input(UNICODE_LITERALS, UNICODE_LITERALS_six, extra_flags=['--six-unicode'])
 
 def test_unicode_compat():
-    check_on_input(UNICODE_LITERALS, UNICODE_LITERALS_compat, extra_flags=['--compat-unicode'])
+    check_on_input(UNICODE_LITERALS, UNICODE_LITERALS_compat)
 
 def test_unicode_future():
     check_on_input(UNICODE_LITERALS, UNICODE_LITERALS_future, extra_flags=['--future-unicode'])
@@ -43,4 +43,5 @@ six.text_type(x)
 )
 
 def test_unicode_name():
-    check_on_input(*UNICODE_NAME)
+    check_on_input(*UNICODE_NAME, extra_flags=['--six-unicode'])
+    # TODO: This should be independent of what we want to do with unicode literals

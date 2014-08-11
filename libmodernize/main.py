@@ -37,11 +37,10 @@ def main(args=None):
                       help="Write back modified files")
     parser.add_option("-n", "--nobackups", action="store_true", default=False,
                       help="Don't write backups for modified files.")
-    parser.add_option("--compat-unicode", action="store_true", default=False,
-                      help="Leave u'' and b'' prefixes unchanged (requires "
-                           "Python 3.3 and higher).")
+    parser.add_option("--six-unicode", action="store_true", default=False,
+                      help="Wrap unicode literals in six.u()")
     parser.add_option("--future-unicode", action="store_true", default=False,
-                      help="Use unicode_strings future_feature instead of the six.u function "
+                      help="Use 'from __future__ import unicode_literals'"
                       "(only useful for Python 2.6+).")
     parser.add_option("--no-six", action="store_true", default=False,
                       help="Exclude fixes that depend on the six package")
@@ -84,12 +83,12 @@ def main(args=None):
     unwanted_fixes = set(options.nofix)
 
     # Remove unicode fixers depending on command line options
-    if options.compat_unicode:
-        unwanted_fixes.add('libmodernize.fixes.fix_unicode')
+    if options.six_unicode:
         unwanted_fixes.add('libmodernize.fixes.fix_unicode_future')
     elif options.future_unicode:
         unwanted_fixes.add('libmodernize.fixes.fix_unicode')
     else:
+        unwanted_fixes.add('libmodernize.fixes.fix_unicode')
         unwanted_fixes.add('libmodernize.fixes.fix_unicode_future')
 
     if options.no_six:
