@@ -14,7 +14,7 @@ setup(
     author='Armin Ronacher',
     author_email='armin.ronacher@active-4.com',
     version=version,
-    url='http://github.com/mitsuhiko/python-modernize',
+    url='https://github.com/python-modernize/python-modernize',
     packages=['libmodernize', 'libmodernize.fixes'],
     description='A hack on top of 2to3 for modernizing code for '
                 'hybrid codebases.',
