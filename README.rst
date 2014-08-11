@@ -1,20 +1,21 @@
-```
-  Python           _              _        
-     _ __  ___  __| |___ _ _ _ _ (_)______ 
-    | '  \/ _ \/ _` / -_) '_| ' \| |_ / -_)
-    |_|_|_\___/\__,_\___|_| |_||_|_/__\___|
-```
+::
 
-This library is a very thin wrapper around `lib2to3` to utilize it
+    Python           _              _        
+       _ __  ___  __| |___ _ _ _ _ (_)______ 
+      | '  \/ _ \/ _` / -_) '_| ' \| |_ / -_)
+      |_|_|_\___/\__,_\___|_| |_||_|_/__\___|
+
+This library is a very thin wrapper around ``lib2to3`` to utilize it
 to make Python 2 code more modern with the intention of eventually
 porting it over to Python 3.
 
 It does not guarantee, but it attempts to spit out a Python 2/3
 compatible codebase.  The code that it generates has a runtime
-dependency on `six`, unless the `--no-six` option is used.
+dependency on ``six``, unless the ``--no-six`` option is used.
 
 
-##Unicode Literal Control:
+Unicode Literal Control:
+------------------------
 
 - By default modernize will wrap literals with the six helpers.
   This is useful if you want to support Python 3.1 and Python 3.2
@@ -29,4 +30,5 @@ dependency on `six`, unless the `--no-six` option is used.
   or something similar that survives the transformation.
 
 
-[![Build Status](https://travis-ci.org/python-modernize/python-modernize.png)](https://travis-ci.org/python-modernize/python-modernize)
+.. image:: https://travis-ci.org/python-modernize/python-modernize.svg?branch=master
+    :target: https://travis-ci.org/python-modernize/python-modernize

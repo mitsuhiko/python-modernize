@@ -1,7 +1,7 @@
 import os, re
 from setuptools import setup
 
-readme = open(os.path.join(os.path.dirname(__file__), 'README'), 'r').read()
+readme = open(os.path.join(os.path.dirname(__file__), 'README.rst'), 'r').read()
 
 module_file = open(os.path.join(os.path.dirname(__file__), 'libmodernize', '__init__.py'), 'r').read()
 version_match = re.search(r"__version__ = ['\"]([^'\"]*)['\"]", module_file, re.M)
