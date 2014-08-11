@@ -16,7 +16,7 @@ met:
       promote products derived from this software without specific
       prior written permission.
 
-Parts of this software packages are build on on lib2to3 which is
+Parts of this software package are built on lib2to3 which is
 licensed under the PSF license.  For more information refer to the
 Python license: http://docs.python.org/license.html
 
