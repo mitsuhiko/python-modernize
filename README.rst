@@ -17,13 +17,13 @@ dependency on ``six``, unless the ``--no-six`` option is used.
 Unicode Literal Control:
 ------------------------
 
-- By default modernize does not change unicode literals at all, which means that
+- By default modernize does not change Unicode literals at all, which means that
   you can take advantage of `PEP 414 <http://legacy.python.org/dev/peps/pep-0414/>`_.
   This is the simplest option if you only want to support Python 3.3 and above
   along with Python 2.
-- Alternatively, there is the ``--compat-unicode`` flag which will wrap literals
-  with the six helper function ``six.u()``. This is useful if you want to
-  support Python 3.1 and Python 3.2 without bigger changes.
+- Alternatively, there is the ``--six-unicode`` flag which will wrap Unicode
+  literals with the six helper function ``six.u()``. This is useful if you want
+  to support Python 3.1 and Python 3.2 without bigger changes.
 - The last alternative is the ``--future-unicode`` flag which
   imports the ``unicode_literals`` from the ``__future__`` module.
   This requires Python 2.6 and later, and will require that you
