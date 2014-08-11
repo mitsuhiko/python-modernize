@@ -4,7 +4,7 @@ from lib2to3 import fixer_base
 from lib2to3.fixer_util import touch_import, Name, Call
 
 _mapping = {u"unichr" : u"chr", u"unicode" : u"str"}
-_literal_re = re.compile(ur"[uU][rR]?[\'\"]")
+_literal_re = re.compile(u"[uU][rR]?[\\'\\\"]")
 
 class FixUnicode(fixer_base.BaseFix):
     BM_compatible = True
