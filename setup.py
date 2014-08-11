@@ -29,7 +29,6 @@ setup(
     test_suite='nose.collector',
     classifiers=[
         'License :: OSI Approved :: BSD License',
-        'Programming Language :: PHP',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 2.6',
