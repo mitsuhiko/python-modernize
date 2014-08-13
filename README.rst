@@ -9,6 +9,12 @@ This library is a very thin wrapper around ``lib2to3`` to utilize it
 to make Python 2 code more modern with the intention of eventually
 porting it over to Python 3.
 
+The ``python-modernize`` command works like `2to3
+<https://docs.python.org/3/library/2to3.html>`_. Here's how you'd rewrite a
+single file::
+
+    python-modernize -w example.py
+
 It does not guarantee, but it attempts to spit out a Python 2/3
 compatible codebase.  The code that it generates has a runtime
 dependency on ``six``, unless the ``--no-six`` option is used.
