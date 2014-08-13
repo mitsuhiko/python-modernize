@@ -1,4 +1,4 @@
-"""Fixer for it.next() -> advance_iterator(it)"""
+"""Fixer for iterkeys() -> six.iterkeys(), and similarly for iteritems and itervalues."""
 
 # Local imports
 from lib2to3 import fixer_base
