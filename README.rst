@@ -17,7 +17,8 @@ single file::
 
 It does not guarantee, but it attempts to spit out a Python 2/3
 compatible codebase.  The code that it generates has a runtime
-dependency on ``six``, unless the ``--no-six`` option is used.
+dependency on `six <https://pypi.python.org/pypi/six>`_, unless the
+``--no-six`` option is used.
 
 See the ``LICENSE`` file for the license of ``python-modernize``.
 Using this tool does not affect licensing of the modernized code.
