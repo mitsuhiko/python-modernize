@@ -33,15 +33,3 @@ def test_unicode_compat():
 
 def test_unicode_future():
     check_on_input(UNICODE_LITERALS, UNICODE_LITERALS_future, extra_flags=['--future-unicode'])
-
-UNICODE_NAME = ("""\
-unicode(x)
-""", """\
-import six
-six.text_type(x)
-"""
-)
-
-def test_unicode_name():
-    check_on_input(*UNICODE_NAME, extra_flags=['--six-unicode'])
-    # TODO: This should be independent of what we want to do with unicode literals
