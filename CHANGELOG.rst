@@ -1,3 +1,16 @@
+Unreleased
+==========
+
+Changes since 0.3:
+
+* Support for targetting Python 2.5 or lower has been officially dropped.
+  (Previously some fixers did output constructs that were only added in
+  Python 2.6, such as the `except ... as` construct, but this was not
+  documented.)
+* The `fix_next` fixer uses the `next()` builtin rather than
+  `six.advance_iterator`.
+
+
 Version 0.3
 ===========
 
