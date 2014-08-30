@@ -15,10 +15,11 @@ single file::
 
     python-modernize -w example.py
 
-It does not guarantee, but it attempts to spit out a Python 2/3
-compatible codebase.  The code that it generates has a runtime
+It does not guarantee, but it attempts to spit out a codebase compatible
+with Python 2.6+ or Python 3.  The code that it generates has a runtime
 dependency on `six <https://pypi.python.org/pypi/six>`_, unless the
-``--no-six`` option is used.
+``--no-six`` option is used.  Some of the fixers output code that is not
+compatible with Python 2.5 or lower.
 
 See the ``LICENSE`` file for the license of ``python-modernize``.
 Using this tool does not affect licensing of the modernized code.

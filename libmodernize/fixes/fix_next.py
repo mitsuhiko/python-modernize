@@ -20,7 +20,6 @@ class FixNext(fixer_base.BaseFix):
         base = results.get('base')
         if not base:
             return
-        touch_import(None, u'six', node)
         base = [n.clone() for n in base]
         base[0].prefix = u""
-        node.replace(Call(Name(u"six.advance_iterator", prefix=node.prefix), base))
+        node.replace(Call(Name(u"next", prefix=node.prefix), base))
