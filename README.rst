@@ -44,3 +44,6 @@ Unicode Literal Control:
 
 .. image:: https://travis-ci.org/python-modernize/python-modernize.svg?branch=master
     :target: https://travis-ci.org/python-modernize/python-modernize
+
+.. image:: https://coveralls.io/repos/python-modernize/python-modernize/badge.png?branch=master
+    :target: https://coveralls.io/r/python-modernize/python-modernize?branch=master
