@@ -4,7 +4,10 @@ python:
   - "3.3"
   - "3.4"
 # command to run tests
-script: nosetests
+script: coverage run --branch --source=libmodernize setup.py test
 # Ensure dependencies are installed
 install:
   - pip install .
+  - pip install 'coveralls==0.4.2'
+after_success:
+  coveralls
