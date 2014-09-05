@@ -42,7 +42,7 @@ range(stop=1)
 XRANGE_1_ARG = ("""\
 xrange(1)
 """, """\
-from six.move import range
+from six.moves import range
 range(1)
 """)
 
@@ -58,18 +58,6 @@ xrange(1, 2, 3)
 """, """\
 from six.moves import range
 range(1, 2, 3)
-""")
-
-XRANGE_TOO_FEW_ARGS= ("""\
-xrange()
-""", """\
-xrange()
-""")
-
-XRANGE_TOO_MANY_ARGS= ("""\
-xrange(1, 2, 3, 4)
-""", """\
-xrange(1, 2, 3, 4)
 """)
 
 XRANGE_KWARGS = ("""\
@@ -88,12 +76,6 @@ def test_range_2_args():
 def test_range_3_args():
     check_on_input(*RANGE_3_ARGS)
 
-def test_range_too_few_args():
-    check_on_input(*RANGE_TOO_FEW_ARGS)
-
-def test_range_too_many_args():
-    check_on_input(*RANGE_TOO_MANY_ARGS)
-
 def test_range_kwargs():
     check_on_input(*RANGE_KWARGS)
 
@@ -105,12 +87,6 @@ def test_xrange_2_args():
 
 def test_xrange_3_args():
     check_on_input(*XRANGE_3_ARGS)
-
-def test_xrange_too_few_args():
-    check_on_input(*XRANGE_TOO_FEW_ARGS)
-
-def test_xrange_too_many_args():
-    check_on_input(*XRANGE_TOO_MANY_ARGS)
 
 def test_xrange_kwargs():
     check_on_input(*XRANGE_KWARGS)

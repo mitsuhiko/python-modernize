@@ -2,7 +2,7 @@
 # Licensed to PSF under a Contributor Agreement.
 
 from lib2to3 import fixer_base
-from lib2to3.fixer_util import touch_import
+from lib2to3.fixer_util import Call, Name, touch_import
 
 
 class FixRange(fixer_base.BaseFix):
@@ -11,23 +11,22 @@ class FixRange(fixer_base.BaseFix):
     order = "pre"
 
     PATTERN = """
-    power< name='range'|'xrange'
-        trailer< '('
-            arglist< (
-                (not(argument<any '=' any>) any ','
-                 not(argument<any '=' any>) any) |
-                (not(argument<any '=' any>) any ','
-                 not(argument<any '=' any>) any ','
-                 not(argument<any '=' any>) any) |
-                (not(argument<any '=' any>) any ','
-                 not(argument<any '=' any>) any ','
-                 not(argument<any '=' any>) any ','
-                 not(argument<any '=' any>) any)
-            ) >
-        ')' >
-    >
+        power<
+            (name='range'|name='xrange')
+            trailer< '(' (
+                args=(not(argument<any '=' any>) any)
+            ) ')' >
+        >
     """
 
     def transform(self, node, results):
-        touch_import(u'six.moves', u'range', node)
-        results['name'][0].value = 'range'
+        name = results.get('name')
+        if name is None:
+            return
+        elif name.value == 'xrange':
+            touch_import(u'six.moves', u'range', node)
+            name.replace(Name('range', prefix=name.prefix))
+        else:
+            original_args = [x.clone() for x in results['args']]
+            range_call = Call(Name('range'), original_args)
+            return Call(Name("list"), [range_call])
