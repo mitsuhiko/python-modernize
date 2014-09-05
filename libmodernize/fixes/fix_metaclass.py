@@ -1,7 +1,7 @@
 # coding: utf-8
 """Fixer for __metaclass__ = X -> (six.with_metaclass(X)) methods.
 
-   The various forms of classef (inherits nothing, inherits once, inherints
+   The various forms of classdef (inherits nothing, inherits once, inherints
    many) don't parse the same in the CST so we look at ALL classes for
    a __metaclass__ and if we find one normalize the inherits to all be
    an arglist.
@@ -240,10 +240,10 @@ class FixMetaclass(fixer_base.BaseFix):
 
         # check for empty suite
         if not suite.children:
-            # one-liner that was just __metaclass_
+            # one-liner that was just __metaclass__
             suite.remove()
             pass_leaf = Leaf(text_type, u'pass')
-            pass_leaf.prefix = orig_meta_prefix
+            pass_leaf.prefix = last_metaclass.prefix
             node.append_child(pass_leaf)
             node.append_child(Leaf(token.NEWLINE, u'\n'))
 
