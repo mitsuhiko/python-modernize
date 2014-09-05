@@ -51,7 +51,7 @@ class FixPrint(fixer_base.BaseFix):
             # already-parenthesised expression.
             return
 
-        sep = end = file = None
+        end = file = None
         if args and args[-1] == Comma():
             args = args[:-1]
             end = " "
@@ -59,13 +59,12 @@ class FixPrint(fixer_base.BaseFix):
             assert len(args) >= 2
             file = args[1].clone()
             args = args[3:] # Strip a possible comma after the file expression
-        # Now synthesize a print(args, sep=..., end=..., file=...) node.
+        # Now synthesize a print(args, end=..., file=...) node
+        # (sep is not used).
         l_args = [arg.clone() for arg in args]
         if l_args:
             l_args[0].prefix = u""
-        if sep is not None or end is not None or file is not None:
-            if sep is not None:
-                self.add_kwarg(l_args, u"sep", String(repr(sep)))
+        if end is not None or file is not None:
             if end is not None:
                 self.add_kwarg(l_args, u"end", String(repr(end)))
             if file is not None:
