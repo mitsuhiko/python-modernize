@@ -13,7 +13,8 @@ class FixZip(fixer_base.BaseFix):
     PATTERN = """
     power< 'zip'
         trailer< '('
-            arglist< any+ >
+            ( not(arglist | argument<any '=' any>) any* |
+              arglist < not(argument<any '=' any>) any* > )
         ')' >
     >
     """
