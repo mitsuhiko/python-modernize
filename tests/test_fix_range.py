@@ -66,6 +66,24 @@ xrange(stop=1)
 xrange(stop=1)
 """)
 
+# Both
+RANGE_XRANGE = ("""\
+range(1)
+xrange(1)
+""", """\
+from six.moves import range
+list(range(1))
+range(1)
+""")
+
+XRANGE_RANGE = ("""\
+xrange(1)
+range(1)
+""", """\
+from six.moves import range
+range(1)
+list(range(1))
+""")
 
 def test_range_1_arg():
     check_on_input(*RANGE_1_ARG)
@@ -90,3 +108,9 @@ def test_xrange_3_args():
 
 def test_xrange_kwargs():
     check_on_input(*XRANGE_KWARGS)
+
+def test_range_xrange():
+    check_on_input(*RANGE_XRANGE)
+
+def test_xrange_range():
+    check_on_input(*XRANGE_RANGE)
