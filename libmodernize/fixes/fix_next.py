@@ -16,10 +16,7 @@ class FixNext(fixer_base.BaseFix):
     order = "pre" # Pre-order tree traversal
 
     def transform(self, node, results):
-        assert results
-        base = results.get('base')
-        if not base:
-            return
+        base = results['base']
         base = [n.clone() for n in base]
         base[0].prefix = u""
         node.replace(Call(Name(u"next", prefix=node.prefix), base))
