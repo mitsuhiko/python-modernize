@@ -28,6 +28,12 @@ from six.moves import map
 map(x, [1], [2], [3])
 """)
 
+MAP_KWARGS = ("""\
+map(function=x, [1])
+""", """\
+map(function=x, [1])
+""")
+
 MAP_REF = ("""\
 x = map
 """, """\
@@ -46,6 +52,9 @@ def test_map_3_args():
 
 def test_map_4_args():
     check_on_input(*MAP_4_ARGS)
+
+def test_map_kwargs():
+    check_on_input(*MAP_KWARGS)
 
 def test_map_ref():
     check_on_input(*MAP_REF)
