@@ -1,4 +1,3 @@
-import ast
 from lib2to3 import refactor
 import sys
 
