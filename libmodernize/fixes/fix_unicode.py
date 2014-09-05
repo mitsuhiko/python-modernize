@@ -8,20 +8,10 @@ _literal_re = re.compile(u"[uU][rR]?[\\'\\\"]")
 
 class FixUnicode(fixer_base.BaseFix):
     BM_compatible = True
-    PATTERN = """
-        STRING |
-        power< name='unicode'
-            trailer< '(' [any] ')' >
-            any *
-        >
-    """
+    PATTERN = """STRING"""
 
     def transform(self, node, results):
-        if 'name' in results:
-            touch_import(None, u'six', node)
-            name = results['name']
-            name.replace(Name(u'six.text_type', prefix=name.prefix))
-        elif node.type == token.STRING and _literal_re.match(node.value):
+        if _literal_re.match(node.value):
             touch_import(None, u'six', node)
             new = node.clone()
             new.value = new.value[1:]
