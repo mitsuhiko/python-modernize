@@ -2,7 +2,6 @@
 
 raise E, V, T -> six.reraise(E, V, T)
 
-Not very well-tested, based on examples
 """
 # Author : Markus Unterwaditzer
 
@@ -25,6 +24,6 @@ class FixRaiseSix(fixer_base.BaseFix):
         exc.prefix = u""
         val.prefix = tb.prefix = u" "
 
-        touch_import(u'six', u'reraise', node)
+        touch_import(None, u'six', node)
         return Call(Name(u"six.reraise"), [exc, Comma(), val, Comma(), tb],
                     prefix=node.prefix)
