@@ -38,6 +38,12 @@ range(stop=1)
 range(stop=1)
 """)
 
+RANGE_IDEMPOTENT = ("""\
+list(range(1))
+""", """\
+list(range(1))
+""")
+
 # xrange()
 XRANGE_1_ARG = ("""\
 xrange(1)
@@ -64,6 +70,14 @@ XRANGE_KWARGS = ("""\
 xrange(stop=1)
 """, """\
 xrange(stop=1)
+""")
+
+XRANGE_IDEMPOTENT = ("""\
+from six.moves import range
+range(1)
+""", """\
+from six.moves import range
+range(1)
 """)
 
 # Both
@@ -97,6 +111,9 @@ def test_range_3_args():
 def test_range_kwargs():
     check_on_input(*RANGE_KWARGS)
 
+def test_range_idempotent():
+    check_on_input(*RANGE_IDEMPOTENT)
+
 def test_xrange_1_arg():
     check_on_input(*XRANGE_1_ARG)
 
@@ -108,6 +125,9 @@ def test_xrange_3_args():
 
 def test_xrange_kwargs():
     check_on_input(*XRANGE_KWARGS)
+
+def test_xrange_idempotent():
+    check_on_input(*XRANGE_IDEMPOTENT)
 
 def test_range_xrange():
     check_on_input(*RANGE_XRANGE)
