@@ -5,21 +5,21 @@ MAP_2_ARGS = ("""\
 map(x, [1])
 """, """\
 from six.moves import map
-map(x, [1])
+list(map(x, [1]))
 """)
 
 MAP_3_ARGS = ("""\
 map(x, [1], [2])
 """, """\
 from six.moves import map
-map(x, [1], [2])
+list(map(x, [1], [2]))
 """)
 
 MAP_4_ARGS = ("""\
 map(x, [1], [2], [3])
 """, """\
 from six.moves import map
-map(x, [1], [2], [3])
+list(map(x, [1], [2], [3]))
 """)
 
 MAP_TOO_FEW_ARGS = ("""\
@@ -38,6 +38,23 @@ MAP_REF = ("""\
 x = map
 """, """\
 x = map
+""")
+
+MAP_ITERATOR_CONTEXT = ("""\
+for a in map(x, [1]):
+    pass
+""", """\
+from six.moves import zip
+for a in map(x, [1]):
+    pass
+""")
+
+MAP_SIX_ALREADY = ("""\
+from six.moves import zip
+map(x, [1])
+""", """\
+from six.moves import zip
+map(x, [1])
 """)
 
 
