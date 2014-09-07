@@ -5,7 +5,7 @@ FILTER_CALL = ("""\
 filter(None, [1])
 """, """\
 from six.moves import filter
-filter(None, [1])
+list(filter(None, [1]))
 """)
 
 FILTER_TOO_FEW_ARGS = ("""\
@@ -26,6 +26,23 @@ filter(function=None, [1])
 filter(function=None, [1])
 """)
 
+FILTER_ITERATOR_CONTEXT = ("""\
+for a in filter(None, [1]):
+    pass
+""", """\
+from six.moves import filter
+for a in filter(None, [1]):
+    pass
+""")
+
+FILTER_SIX_ALREADY = ("""\
+from six.moves import filter
+filter(None, [1])
+""", """\
+from six.moves import filter
+filter(None, [1])
+""")
+
 
 def test_filter_call():
     check_on_input(*FILTER_CALL)
@@ -38,3 +55,9 @@ def test_filter_too_many_args():
 
 def test_filter_kwargs():
     check_on_input(*FILTER_KWARGS)
+
+def test_filter_iterator_context():
+    check_on_input(*FILTER_ITERATOR_CONTEXT)
+
+def test_filter_six_already():
+    check_on_input(*FILTER_SIX_ALREADY)
