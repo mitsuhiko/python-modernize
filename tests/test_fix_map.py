@@ -44,16 +44,16 @@ MAP_ITERATOR_CONTEXT = ("""\
 for a in map(x, [1]):
     pass
 """, """\
-from six.moves import zip
+from six.moves import map
 for a in map(x, [1]):
     pass
 """)
 
 MAP_SIX_ALREADY = ("""\
-from six.moves import zip
+from six.moves import map
 map(x, [1])
 """, """\
-from six.moves import zip
+from six.moves import map
 map(x, [1])
 """)
 
@@ -75,3 +75,9 @@ def test_map_kwargs():
 
 def test_map_ref():
     check_on_input(*MAP_REF)
+
+def test_map_iterator_context():
+    check_on_input(*MAP_ITERATOR_CONTEXT)
+
+def test_map_six_already():
+    check_on_input(*MAP_SIX_ALREADY)
