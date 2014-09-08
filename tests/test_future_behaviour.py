@@ -73,7 +73,7 @@ def test_many_prints_and_unicode():
     _check_on_input(COMPLICATED_CONTENT, ["--future-unicode"])
 
 def test_two_files_on_single_run():
-    # Mostly to test whether second file gets it's from future
+    # Mostly to test whether second file gets its "from future ..."
     try:
         tmpdirname = tempfile.mkdtemp()
         input_names = [ os.path.join(tmpdirname, "input_{0}.py".format(idx))
