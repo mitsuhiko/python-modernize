@@ -44,6 +44,17 @@ import six
 class Foo(six.with_metaclass(Meta)): pass
 """)
 
+METACLASS_SEMICOLON_STMT = ("""\
+class Foo(Bar):
+    __metaclass__ = Meta; a = 12
+    b = 64
+""", """\
+import six
+class Foo(six.with_metaclass(Meta, Bar)):
+    a = 12
+    b = 64
+"""
+)
 
 def test_metaclass_no_base():
     check_on_input(*METACLASS_NO_BASE)
@@ -59,3 +70,6 @@ def test_metaclass_MANY_BASES():
 
 def test_metaclass_one_liner():
     check_on_input(*METACLASS_ONE_LINER)
+
+def test_metaclass_semicolon_stmt():
+    check_on_input(*METACLASS_SEMICOLON_STMT)
