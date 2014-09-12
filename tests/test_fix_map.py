@@ -49,14 +49,6 @@ for a in map(x, [1]):
     pass
 """)
 
-MAP_SIX_ALREADY = ("""\
-from six.moves import map
-map(x, [1])
-""", """\
-from six.moves import map
-map(x, [1])
-""")
-
 
 def test_map_2_args():
     check_on_input(*MAP_2_ARGS)
@@ -78,6 +70,3 @@ def test_map_ref():
 
 def test_map_iterator_context():
     check_on_input(*MAP_ITERATOR_CONTEXT)
-
-def test_map_six_already():
-    check_on_input(*MAP_SIX_ALREADY)
