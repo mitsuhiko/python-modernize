@@ -33,7 +33,7 @@ class Foo(Bar, Spam):
     __metaclass__ = Meta
 """, """\
 import six
-class Foo(six.with_metaclass(Meta, type('NewBase', (Bar, Spam), {}))):
+class Foo(six.with_metaclass(Meta, Bar, Spam)):
     pass
 """)
 
@@ -55,6 +55,7 @@ class Foo(six.with_metaclass(Meta, Bar)):
     b = 64
 """
 )
+
 
 def test_metaclass_no_base():
     check_on_input(*METACLASS_NO_BASE)
