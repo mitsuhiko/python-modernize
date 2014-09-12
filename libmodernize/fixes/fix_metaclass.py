@@ -209,27 +209,9 @@ class FixMetaclass(fixer_base.BaseFix):
         arguments = [metaclass]
 
         if arglist.children:
-            if len(arglist.children) == 1:
-                base = arglist.children[0].clone()
-                base.prefix = u' '
-            else:
-                # Unfortunately six.with_metaclass() only allows one base
-                # class, so we have to dynamically generate a base class if
-                # there is more than one.
-                bases = parenthesize(arglist.clone())
-                bases.prefix = u' '
-                base = Call(Name('type'), [
-                    String("'NewBase'"),
-                    Comma(),
-                    bases,
-                    Comma(),
-                    Node(
-                        syms.atom,
-                        [Leaf(token.LBRACE, u'{'), Leaf(token.RBRACE, u'}')],
-                        prefix=u' '
-                    )
-                ], prefix=u' ')
-            arguments.extend([Comma(), base])
+            bases = arglist.clone()
+            bases.prefix = u' '
+            arguments.extend([Comma(), bases])
 
         arglist.replace(Call(
             Name(u'six.with_metaclass', prefix=arglist.prefix),
