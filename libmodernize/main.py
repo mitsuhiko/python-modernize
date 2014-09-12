@@ -81,7 +81,7 @@ def main(args=None):
 
     # Initialize the refactoring tool
     unwanted_fixes = set(options.nofix)
-    avail_fixes = avail_fixes.difference(opt_in_fix_names)
+    default_fixes = avail_fixes.difference(opt_in_fix_names)
 
     # Remove unicode fixers depending on command line options
     if options.six_unicode:
@@ -102,9 +102,9 @@ def main(args=None):
                 all_present = True
             else:
                 explicit.add(fix)
-        requested = avail_fixes.union(explicit) if all_present else explicit
+        requested = default_fixes.union(explicit) if all_present else explicit
     else:
-        requested = avail_fixes.union(explicit)
+        requested = default_fixes
     fixer_names = requested.difference(unwanted_fixes)
     rt = StdoutRefactoringTool(sorted(fixer_names), flags, sorted(explicit),
                                options.nobackups, not options.no_diffs)
