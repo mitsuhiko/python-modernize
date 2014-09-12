@@ -115,7 +115,7 @@ def find_metas(cls_node):
         if node.type == syms.suite:
             break
     else:
-        raise ValueError("No class suite!")
+        raise ValueError("No class suite!")  # pragma: no cover
 
     # look for simple_stmt[ expr_stmt[ Leaf('__metaclass__') ] ]
     for i, simple_node in list(enumerate(node.children)):
@@ -163,7 +163,7 @@ class FixMetaclass(fixer_base.BaseFix):
 
     def transform(self, node, results):
         if not has_metaclass(node):
-            return
+            return  # pragma: no cover
 
         fixup_parse_tree(node)
 
@@ -199,7 +199,7 @@ class FixMetaclass(fixer_base.BaseFix):
             node.insert_child(2, arglist)
             node.insert_child(2, Leaf(token.LPAR, u'('))
         else:
-            raise ValueError("Unexpected class definition")
+            raise ValueError("Unexpected class definition")  # pragma: no cover
 
         touch_import(None, u'six', node)
 

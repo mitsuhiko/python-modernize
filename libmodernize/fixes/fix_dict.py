@@ -17,9 +17,7 @@ class FixDict(fixer_base.BaseFix):
 
     def transform(self, node, results):
         assert results
-        base = results.get('base')
-        if not base:
-            return
+        base = results['base']
         method = results['method'][0]
         touch_import(None, u'six', node)
         base = [n.clone() for n in base]
