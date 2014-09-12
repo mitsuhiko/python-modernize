@@ -29,7 +29,7 @@ lib2to3_fix_names = set([
 # fixes that involve using six
 six_fix_names = set([
     'libmodernize.fixes.fix_basestring',
-    'libmodernize.fixes.fix_dict',
+    'libmodernize.fixes.fix_dict_six',
     'libmodernize.fixes.fix_filter',
     'libmodernize.fixes.fix_input_six',
     'libmodernize.fixes.fix_map',
