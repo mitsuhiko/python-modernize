@@ -47,3 +47,6 @@ def test_filter_too_many_args():
 
 def test_filter_kwargs():
     check_on_input(*FILTER_KWARGS)
+
+def test_filter_iterator_context():
+    check_on_input(*FILTER_ITERATOR_CONTEXT)
