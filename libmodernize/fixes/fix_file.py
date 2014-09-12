@@ -5,6 +5,8 @@ from lib2to3.fixer_util import Name
 class FixFile(fixer_base.BaseFix):
 
     BM_compatible = True
+    order = 'pre'
+    
     PATTERN = """
     power< name='file'
         trailer<
