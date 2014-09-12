@@ -7,7 +7,7 @@ import optparse
 from lib2to3.main import warn, StdoutRefactoringTool
 from lib2to3 import refactor
 
-from libmodernize.fixes import lib2to3_fix_names, six_fix_names
+from libmodernize.fixes import lib2to3_fix_names, six_fix_names, opt_in_fix_names
 
 
 def main(args=None):
@@ -81,6 +81,7 @@ def main(args=None):
 
     # Initialize the refactoring tool
     unwanted_fixes = set(options.nofix)
+    avail_fixes = avail_fixes.difference(opt_in_fix_names)
 
     # Remove unicode fixers depending on command line options
     if options.six_unicode:
@@ -118,7 +119,7 @@ def main(args=None):
                             options.processes)
             except refactor.MultiprocessingUnsupported:
                 assert options.processes > 1
-                print("Sorry, -j isn't supported on this platform.", 
+                print("Sorry, -j isn't supported on this platform.",
                       file=sys.stderr)
                 return 1
         rt.summarize()

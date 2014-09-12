@@ -38,4 +38,9 @@ six_fix_names = set([
     'libmodernize.fixes.fix_unicode_type',
     'libmodernize.fixes.fix_xrange_six',
     'libmodernize.fixes.fix_zip',
-    ])
+])
+
+# Fixes that are opt-in only.
+opt_in_fix_names = set([
+    'libmodernize.fixes.fix_open',
+])
