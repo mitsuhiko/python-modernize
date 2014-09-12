@@ -15,14 +15,6 @@ from six.moves import input
 eval(input('hello'))
 """)
 
-INPUT_IDEMPOTENT = ("""\
-from six.moves import input
-input()
-""", """\
-from six.moves import input
-input()
-""")
-
 RAW_INPUT = ("""\
 raw_input()
 """, """\
@@ -52,9 +44,6 @@ def test_input():
 
 def test_input_args():
     check_on_input(*INPUT_ARGS)
-
-def test_input_idempotent():
-    check_on_input(*INPUT_IDEMPOTENT)
 
 def test_raw_input():
     check_on_input(*RAW_INPUT)
