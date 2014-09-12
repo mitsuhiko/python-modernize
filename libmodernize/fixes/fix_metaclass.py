@@ -68,7 +68,7 @@ def fixup_parse_tree(cls_node):
         if node.type == token.COLON:
             break
     else:
-        raise ValueError("No class suite and no ':'!")
+        raise ValueError("No class suite and no ':'!")  # pragma: no cover
 
     # move everything into a suite node
     suite = Node(syms.suite, [])
