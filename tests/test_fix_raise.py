@@ -32,6 +32,12 @@ raise 'exception'
 raise 'exception'
 """)
 
+RAISE_TUPLE_ARGS = ("""\
+raise e, (1, 2)
+""", """\
+raise e(1, 2)
+""")
+
 
 def test_raise():
     check_on_input(*RAISE)
@@ -47,3 +53,6 @@ def test_raise_tuple():
 
 def test_raise_string():
     check_on_input(*RAISE_STRING)
+
+def test_raise_tuple_args():
+    check_on_input(*RAISE_TUPLE_ARGS)
