@@ -46,14 +46,6 @@ for a in zip(x):
     pass
 """)
 
-ZIP_SIX_ALREADY = ("""\
-from six.moves import zip
-zip(x)
-""", """\
-from six.moves import zip
-zip(x)
-""")
-
 
 def test_zip_call_no_args():
     check_on_input(*ZIP_CALL_NO_ARGS)
@@ -72,6 +64,3 @@ def test_zip_kwargs():
 
 def test_zip_iterator_context():
     check_on_input(*ZIP_ITERATOR_CONTEXT)
-
-def test_zip_six_already():
-    check_on_input(*ZIP_SIX_ALREADY)
