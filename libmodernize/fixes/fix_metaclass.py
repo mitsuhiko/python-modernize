@@ -15,16 +15,14 @@
    This fixer also tries very hard to keep original indenting and spacing
    in all those corner cases.
 """
-# This is a derived work of Lib/lib2to3/fixes/fix_metaclass.py under the
-# copyright of the Python Software Foundation, licensed under the Python
-# Software Foundation License 2.
+# This is a derived work of Lib/lib2to3/fixes/fix_metaclass.py. That file
+# is under the copyright of the Python Software Foundation and licensed
+# under the Python Software Foundation License 2.
 #
 # Copyright notice:
 #
 #     Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
 #     2011, 2012, 2013 Python Software Foundation. All rights reserved.
-#
-# Full license text: http://docs.python.org/3.4/license.html
 
 # Author: Jack Diederich, Daniel Neuhäuser
 
