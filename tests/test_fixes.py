@@ -13,7 +13,7 @@ def check_existence(prefix, module_names):
     dotted_prefix = prefix + '.'
     for module_name in module_names:
         if not module_name.startswith(dotted_prefix):
-            msg = '{0!r} does not start with {1!r}'.format(module_name, lib2to3_prefix)
+            msg = '{0!r} does not start with {1!r}'.format(module_name, prefix)
             raise AssertionError(msg)
         try:
             __import__(module_name)

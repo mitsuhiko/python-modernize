@@ -31,7 +31,7 @@ six_fix_names = set([
     'libmodernize.fixes.fix_basestring',
     'libmodernize.fixes.fix_dict_six',
     'libmodernize.fixes.fix_filter',
-    'libermodernize.fixes.fix_imports_six',
+    'libmodernize.fixes.fix_imports_six',
     'libmodernize.fixes.fix_input_six',
     'libmodernize.fixes.fix_map',
     'libmodernize.fixes.fix_metaclass',
