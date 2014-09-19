@@ -31,12 +31,6 @@ from six.moves import zip
 list(zip(*args))
 """)
 
-ZIP_KWARGS = ("""\
-zip(arg1=[1])
-""", """\
-zip(arg1=[1])
-""")
-
 ZIP_ITERATOR_CONTEXT = ("""\
 for a in zip(x):
     pass
@@ -58,9 +52,6 @@ def test_zip_call_2_args():
 
 def test_zip_call_star_args():
     check_on_input(*ZIP_CALL_STAR_ARGS)
-
-def test_zip_kwargs():
-    check_on_input(*ZIP_KWARGS)
 
 def test_zip_iterator_context():
     check_on_input(*ZIP_ITERATOR_CONTEXT)
