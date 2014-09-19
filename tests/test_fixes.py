@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from lib2to3 import refactor
 import sys
 

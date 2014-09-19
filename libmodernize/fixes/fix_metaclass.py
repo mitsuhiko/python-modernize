@@ -25,12 +25,14 @@
 #     2011, 2012, 2013 Python Software Foundation. All rights reserved.
 
 # Author: Jack Diederich, Daniel Neuhäuser
+from __future__ import absolute_import
 
 # Local imports
 from lib2to3 import fixer_base
 from lib2to3.pygram import token
-from lib2to3.fixer_util import Name, syms, Node, Leaf, touch_import, Call, \
+from lib2to3.fixer_util import Name, syms, Node, Leaf, Call, \
     String, Comma, parenthesize
+from libmodernize import touch_import
 
 
 def has_metaclass(parent):

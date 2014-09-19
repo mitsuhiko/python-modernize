@@ -4,10 +4,12 @@ raise E, V, T -> six.reraise(E, V, T)
 
 """
 # Author : Markus Unterwaditzer
+from __future__ import absolute_import
 
 # Local imports
 from lib2to3 import fixer_base
-from lib2to3.fixer_util import Name, Call, Comma, touch_import
+from lib2to3.fixer_util import Name, Call, Comma
+from libmodernize import touch_import
 
 class FixRaiseSix(fixer_base.BaseFix):
 
