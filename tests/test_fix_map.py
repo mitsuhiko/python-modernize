@@ -50,6 +50,12 @@ for a in map(x, [1]):
     pass
 """)
 
+MAP_LAMBDA = ("""\
+x = map(lambda x: x+1, stuff)
+""", """\
+x = [x+1 for x in stuff]
+""")
+
 
 def test_map_1_arg():
     check_on_input(*MAP_1_ARG)
@@ -68,3 +74,6 @@ def test_map_ref():
 
 def test_map_iterator_context():
     check_on_input(*MAP_ITERATOR_CONTEXT)
+
+def test_map_lambda():
+    check_on_input(*MAP_LAMBDA)

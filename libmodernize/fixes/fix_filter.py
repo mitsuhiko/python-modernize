@@ -2,6 +2,9 @@
 # Licensed to PSF under a Contributor Agreement.
 from __future__ import absolute_import
 
+from lib2to3 import fixer_util
+from lib2to3 import pygram
+from lib2to3 import pytree
 from lib2to3.fixes import fix_filter
 import libmodernize
 
@@ -12,7 +15,8 @@ class FixFilter(fix_filter.FixFilter):
 
     def transform(self, node, results):
         result = super(FixFilter, self).transform(node, results)
-        # Keep performance improvement from six.moves.filter in iterator
-        # contexts on Python 2.7.
-        libmodernize.touch_import(u'six.moves', u'filter', node)
+        if not libmodernize.is_listcomp(result):
+            # Keep performance improvement from six.moves.filter in iterator
+            # contexts on Python 2.7.
+            libmodernize.touch_import(u'six.moves', u'filter', node)
         return result
