@@ -7,9 +7,11 @@
 #
 #     Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
 #     2011, 2012, 2013, 2014 Python Software Foundation. All rights reserved.
+from __future__ import absolute_import
 
 from lib2to3 import fixer_base
-from lib2to3.fixer_util import Call, Name, touch_import
+from lib2to3.fixer_util import Call, Name
+from libmodernize import touch_import
 
 
 class FixInputSix(fixer_base.ConditionalFix):

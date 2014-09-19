@@ -1,9 +1,12 @@
+from __future__ import absolute_import
+
 from utils import check_on_input
 
 
 FILTER_CALL = ("""\
 filter(None, [1])
 """, """\
+from __future__ import absolute_import
 from six.moves import filter
 list(filter(None, [1]))
 """)
@@ -30,6 +33,7 @@ FILTER_ITERATOR_CONTEXT = ("""\
 for a in filter(None, [1]):
     pass
 """, """\
+from __future__ import absolute_import
 from six.moves import filter
 for a in filter(None, [1]):
     pass
