@@ -4,7 +4,7 @@ from lib2to3.fixer_util import touch_import
 
 class FixOpen(fixer_base.BaseFix):
 
-    run_order = 10  # Must run after fix_file.
+    run_order = 10  # Run after fix_file.
     BM_compatible = True
     # Fixers don't directly stack, so make sure the 'file' case is covered.
     PATTERN = """
