@@ -26,6 +26,7 @@ print('Hello', 'world')
 PRINT_WITH_PARENS = ("""\
 print('Hello')
 """, """\
+from __future__ import print_function
 print('Hello')
 """)
 
