@@ -18,6 +18,7 @@ CAVEATS:
    this.
 """
 # Author: Collin Winter, Armin Ronacher
+from __future__ import absolute_import
 
 # Local imports
 from lib2to3 import pytree, fixer_base

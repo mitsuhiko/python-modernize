@@ -1,5 +1,7 @@
+from __future__ import absolute_import
+
 from lib2to3 import fixer_base
-from lib2to3.fixer_util import touch_import
+import libmodernize
 
 
 class FixOpen(fixer_base.BaseFix):
@@ -13,3 +15,4 @@ class FixOpen(fixer_base.BaseFix):
 
     def transform(self, node, results):
         touch_import(u'io', u'open', node)
+

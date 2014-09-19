@@ -1,9 +1,12 @@
+from __future__ import absolute_import
+
 from utils import check_on_input
 
 
 INPUT = ("""\
 input()
 """, """\
+from __future__ import absolute_import
 from six.moves import input
 eval(input())
 """)
@@ -11,6 +14,7 @@ eval(input())
 INPUT_ARGS = ("""\
 input('hello')
 """, """\
+from __future__ import absolute_import
 from six.moves import input
 eval(input('hello'))
 """)
@@ -18,6 +22,7 @@ eval(input('hello'))
 RAW_INPUT = ("""\
 raw_input()
 """, """\
+from __future__ import absolute_import
 from six.moves import input
 input()
 """)
@@ -25,6 +30,7 @@ input()
 RAW_INPUT_TRAILER = ("""\
 raw_input()[0]
 """, """\
+from __future__ import absolute_import
 from six.moves import input
 input()[0]
 """)
@@ -33,6 +39,7 @@ RAW_INPUT_INPUT = ("""\
 raw_input()
 input()
 """, """\
+from __future__ import absolute_import
 from six.moves import input
 input()
 eval(input())

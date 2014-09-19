@@ -1,5 +1,8 @@
+from __future__ import absolute_import
+
 from lib2to3 import fixer_base
-from lib2to3.fixer_util import touch_import, Name
+from lib2to3 import fixer_util
+import libmodernize
 
 
 class FixBasestring(fixer_base.BaseFix):
@@ -7,5 +10,5 @@ class FixBasestring(fixer_base.BaseFix):
     PATTERN = """'basestring'"""
 
     def transform(self, node, results):
-        touch_import(None, u'six', node)
-        return Name(u'six.string_types', prefix=node.prefix)
+        libmodernize.touch_import(None, u'six', node)
+        return fixer_util.Name(u'six.string_types', prefix=node.prefix)

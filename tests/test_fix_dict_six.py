@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from utils import check_on_input
 
 
@@ -6,6 +8,7 @@ TYPES = 'keys', 'items', 'values'
 DICT_ITER = ("""\
 x.iter{type}()
 """, """\
+from __future__ import absolute_import
 import six
 six.iter{type}(x)
 """)
@@ -13,6 +16,7 @@ six.iter{type}(x)
 DICT_VIEW = ("""\
 x.view{type}()
 """, """\
+from __future__ import absolute_import
 import six
 six.iter{type}(x)
 """)
