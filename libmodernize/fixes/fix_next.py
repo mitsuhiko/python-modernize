@@ -1,8 +1,9 @@
 """Fixer for it.next() -> advance_iterator(it)"""
+from __future__ import absolute_import
 
 # Local imports
 from lib2to3 import fixer_base
-from lib2to3.fixer_util import touch_import, Name, Call
+from lib2to3.fixer_util import Name, Call
 
 bind_warning = "Calls to builtin next() possibly shadowed by global binding"
 

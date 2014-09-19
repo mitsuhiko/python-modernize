@@ -1,8 +1,10 @@
 # Copyright 2008 Armin Ronacher.
 # Licensed to PSF under a Contributor Agreement.
+from __future__ import absolute_import
 
 from lib2to3 import fixer_base
-from lib2to3.fixer_util import Call, Name, touch_import, in_special_context
+from lib2to3.fixer_util import Call, Name, in_special_context
+from libmodernize import touch_import
 
 
 class FixMap(fixer_base.ConditionalFix):

@@ -1,9 +1,12 @@
+from __future__ import absolute_import
+
 from utils import check_on_input
 
 
 BASESTRING = ("""\
 isinstance(x, basestring)
 """, """\
+from __future__ import absolute_import
 import six
 isinstance(x, six.string_types)
 """)

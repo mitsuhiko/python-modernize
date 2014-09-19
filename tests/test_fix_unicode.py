@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from utils import check_on_input
 
 UNICODE_LITERALS = """\
@@ -8,6 +10,7 @@ foo'''
 """
 
 UNICODE_LITERALS_six = """\
+from __future__ import absolute_import
 import six
 a = six.u('')
 b = six.u("\\u2041")
