@@ -1,8 +1,9 @@
 # Copyright 2008 Armin Ronacher.
 # Licensed to PSF under a Contributor Agreement.
+from __future__ import absolute_import
 
-from lib2to3 import fixer_util
 from lib2to3.fixes import fix_filter
+import libmodernize
 
 
 class FixFilter(fix_filter.FixFilter):
@@ -13,5 +14,5 @@ class FixFilter(fix_filter.FixFilter):
         result = super(FixFilter, self).transform(node, results)
         # Keep performance improvement from six.moves.filter in iterator
         # contexts on Python 2.7.
-        fixer_util.touch_import(u'six.moves', u'filter', node)
+        libmodernize.touch_import(u'six.moves', u'filter', node)
         return result

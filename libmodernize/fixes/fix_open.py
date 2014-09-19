@@ -1,5 +1,7 @@
+from __future__ import absolute_import
+
 from lib2to3 import fixer_base
-from lib2to3.fixer_util import touch_import
+import libmodernize
 
 
 class FixOpen(fixer_base.ConditionalFix):
@@ -15,4 +17,4 @@ class FixOpen(fixer_base.ConditionalFix):
     def transform(self, node, results):
         if self.should_skip(node):
             return
-        touch_import(u'io', u'open', node)
+        libmodernize.touch_import(u'io', u'open', node)

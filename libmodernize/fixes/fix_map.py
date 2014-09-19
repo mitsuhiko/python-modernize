@@ -1,9 +1,9 @@
 # Copyright 2008 Armin Ronacher.
 # Licensed to PSF under a Contributor Agreement.
+from __future__ import absolute_import
 
-from lib2to3 import fixer_util
 from lib2to3.fixes import fix_map
-
+import libmodernize
 
 class FixMap(fix_map.FixMap):
 
@@ -13,5 +13,5 @@ class FixMap(fix_map.FixMap):
         result = super(FixMap, self).transform(node, results)
         # Always use the import even if no change is required so as to have
         # improved performance in iterator contexts even on Python 2.7.
-        fixer_util.touch_import(u'six.moves', u'map', node)
+        libmodernize.touch_import(u'six.moves', u'map', node)
         return result

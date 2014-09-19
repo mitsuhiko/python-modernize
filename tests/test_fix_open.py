@@ -1,9 +1,12 @@
+from __future__ import absolute_import
+
 from utils import check_on_input
 
 
 OPEN = ("""\
 open('some/path')
 """, """\
+from __future__ import absolute_import
 from io import open
 open('some/path')
 """)

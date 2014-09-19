@@ -1,8 +1,11 @@
+from __future__ import absolute_import
+
 from utils import check_on_input
 
 MAP_1_ARG = ("""\
 map(*args)
 """, """\
+from __future__ import absolute_import
 from six.moves import map
 list(map(*args))
 """)
@@ -10,6 +13,7 @@ list(map(*args))
 MAP_2_ARGS = ("""\
 map(x, [1])
 """, """\
+from __future__ import absolute_import
 from six.moves import map
 list(map(x, [1]))
 """)
@@ -17,6 +21,7 @@ list(map(x, [1]))
 MAP_3_ARGS = ("""\
 map(x, [1], [2])
 """, """\
+from __future__ import absolute_import
 from six.moves import map
 list(map(x, [1], [2]))
 """)
@@ -24,6 +29,7 @@ list(map(x, [1], [2]))
 MAP_4_ARGS = ("""\
 map(x, [1], [2], [3])
 """, """\
+from __future__ import absolute_import
 from six.moves import map
 list(map(x, [1], [2], [3]))
 """)
@@ -38,6 +44,7 @@ MAP_ITERATOR_CONTEXT = ("""\
 for a in map(x, [1]):
     pass
 """, """\
+from __future__ import absolute_import
 from six.moves import map
 for a in map(x, [1]):
     pass
