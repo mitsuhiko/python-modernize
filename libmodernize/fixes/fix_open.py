@@ -6,7 +6,6 @@ import libmodernize
 
 class FixOpen(fixer_base.BaseFix):
 
-    run_order = 10  # Run after fix_file.
     BM_compatible = True
     # Fixers don't directly stack, so make sure the 'file' case is covered.
     PATTERN = """
@@ -14,5 +13,4 @@ class FixOpen(fixer_base.BaseFix):
     """
 
     def transform(self, node, results):
-        touch_import(u'io', u'open', node)
-
+        libmodernize.touch_import(u'io', u'open', node)
