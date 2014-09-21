@@ -2,7 +2,6 @@
 # Licensed to PSF under a Contributor Agreement.
 from __future__ import absolute_import
 
-from lib2to3 import fixer_util
 from lib2to3.fixes import fix_map
 import libmodernize
 
