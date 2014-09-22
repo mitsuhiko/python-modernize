@@ -67,3 +67,13 @@ def add_future(node, symbol):
 def touch_import(package, name, node):
     add_future(node, 'absolute_import')
     fixer_util.touch_import(package, name, node)
+
+
+def is_listcomp(node):
+    return (isinstance(node, Node) and
+             node.type == syms.atom and
+             len(node.children) >= 2 and
+             isinstance(node.children[0], Leaf) and
+             node.children[0].value == '[' and
+             isinstance(node.children[-1], Leaf) and
+             node.children[-1].value == ']')
