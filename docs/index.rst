@@ -3,15 +3,17 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to modernize's documentation!
-=====================================
+:tocdepth: 3
+
+Python-Modernize
+////////////////
 
 .. toctree::
    :maxdepth: 2
 
 
 Purpose of the project
-//////////////////////
+======================
 
 .. TODO Explain WHY someone would want to have their code be Python 2/3 compatible
 
@@ -33,7 +35,7 @@ modernize_.
 
 
 Fixers
-//////
+======
 
 Fixers come in two types: Default_ and Opt-in_. Default fixers should not break
 code except for corner cases and are idempotent. Opt-in fixers are allowed to
@@ -53,7 +55,7 @@ do not do this
 
 
 A note about handling text literals
-+++++++++++++++++++++++++++++++++++
+-----------------------------------
 
 .. TODO Explain what a "native string" is if it is going to be referenced
 
@@ -73,7 +75,7 @@ A note about handling text literals
 
 
 Default
-+++++++
+-------
 
 A default fixer will be used if:
 
@@ -84,7 +86,7 @@ A default fixer will be used if:
 
 
 Fixers requiring six
---------------------
+++++++++++++++++++++
 
 .. TODO List them and explain what they do
 
@@ -93,7 +95,7 @@ See fixers listed in
 
 
 ``2to3`` fixers
----------------
++++++++++++++++
 
 Some `fixers from lib2to3 <https://docs.python.org/3/library/2to3.html#fixers>`_
 in Python's standard library are run by default unmodified as their
@@ -126,7 +128,7 @@ transformations are Python 2 compatible.
 
 
 Fixers with no dependencies
----------------------------
++++++++++++++++++++++++++++
 
 .. TODO List them and explain what they do
 
@@ -137,12 +139,7 @@ but not listed somehow in
 
 
 Opt-in
-++++++
-
-.. TODO List them and explain what they do and why they are not run by default
-
-See fixers listed in
-`libmodernize.fixes.opt_in_fix_names <https://github.com/python-modernize/python-modernize/blob/master/libmodernize/fixes/__init__.py>`__.
+------
 
 To specify an opt-in fixer while also running all the default fixers, make sure
 to specify the ``all`` fixer, e.g.::
@@ -150,8 +147,27 @@ to specify the ``all`` fixer, e.g.::
     python-modernize -f all -f libmodernize.fixes.fix_open
 
 
+libmodernize.fixes.fix_open
++++++++++++++++++++++++++++
+
+Transforms calls to the `open()` built-in to use `io.open()` instead.::
+
+    with open('some/path') as file:
+        ...
+
+becomes::
+
+    from io import open
+
+    with open('some/path') as file:
+        ...
+
+This fixer is opt-in because it changes what object is returned by a call to
+`open()`: ``io.TextIOWrapper``.
+
+
 Indices and tables
-==================
+//////////////////
 
 * :ref:`genindex`
 * :ref:`modindex`
