@@ -13,7 +13,7 @@ Welcome to modernize's documentation!
 Purpose of the project
 //////////////////////
 
-.. TODO Explain WHY someone would want to have their code by Python 2/3 compatible
+.. TODO Explain WHY someone would want to have their code be Python 2/3 compatible
 
 This library is a very thin wrapper around ``lib2to3`` to utilize it
 to make Python 2 code more modern with the intention of eventually
@@ -99,10 +99,30 @@ Some `fixers from lib2to3 <https://docs.python.org/3/library/2to3.html#fixers>`_
 in Python's standard library are run by default unmodified as their
 transformations are Python 2 compatible.
 
-.. TODO List them and link back to Python docs
-
-See the fixers listed in
-`libmodernize.fixes.lib2to3_fix_names <https://github.com/python-modernize/python-modernize/blob/master/libmodernize/fixes/__init__.py>`__.
+- `lib2to3.fixes.fix_apply <https://docs.python.org/3/library/2to3.html#2to3fixer-apply>`__
+- `lib2to3.fixes.fix_except <https://docs.python.org/3/library/2to3.html#2to3fixer-except>`__
+- `lib2to3.fixes.fix_exec <https://docs.python.org/3/library/2to3.html#2to3fixer-exec>`__
+- `lib2to3.fixes.fix_execfile <https://docs.python.org/3/library/2to3.html#2to3fixer-execfile>`__
+- `lib2to3.fixes.fix_exitfunc <https://docs.python.org/3/library/2to3.html#2to3fixer-exitfunc>`__
+- `lib2to3.fixes.fix_funcattrs <https://docs.python.org/3/library/2to3.html#2to3fixer-funcattrs>`__
+- `lib2to3.fixes.fix_has_key <https://docs.python.org/3/library/2to3.html#2to3fixer-has_key>`__
+- `lib2to3.fixes.fix_idioms <https://docs.python.org/3/library/2to3.html#2to3fixer-idioms>`__
+- `lib2to3.fixes.fix_long <https://docs.python.org/3/library/2to3.html#2to3fixer-long>`__
+- `lib2to3.fixes.fix_methodattrs <https://docs.python.org/3/library/2to3.html#2to3fixer-methodattrs>`__
+- `lib2to3.fixes.fix_ne <https://docs.python.org/3/library/2to3.html#2to3fixer-ne>`__
+- `lib2to3.fixes.fix_numliterals <https://docs.python.org/3/library/2to3.html#2to3fixer-numliterals>`__
+- `lib2to3.fixes.fix_operator <https://docs.python.org/3/library/2to3.html#2to3fixer-operator>`__
+- `lib2to3.fixes.fix_paren <https://docs.python.org/3/library/2to3.html#2to3fixer-paren>`__
+- `lib2to3.fixes.fix_reduce <https://docs.python.org/3/library/2to3.html#2to3fixer-reduce>`__
+- `lib2to3.fixes.fix_repr <https://docs.python.org/3/library/2to3.html#2to3fixer-repr>`__
+- `lib2to3.fixes.fix_set_literal <https://docs.python.org/3/library/2to3.html#2to3fixer-set_literal>`__
+- `lib2to3.fixes.fix_standarderror <https://docs.python.org/3/library/2to3.html#2to3fixer-standarderror>`__
+- `lib2to3.fixes.fix_sys_exc <https://docs.python.org/3/library/2to3.html#2to3fixer-sys_exc>`__
+- `lib2to3.fixes.fix_throw <https://docs.python.org/3/library/2to3.html#2to3fixer-throw>`__
+- `lib2to3.fixes.fix_tuple_params <https://docs.python.org/3/library/2to3.html#2to3fixer-tuple_params>`__
+- `lib2to3.fixes.fix_types <https://docs.python.org/3/library/2to3.html#2to3fixer-types>`__
+- `lib2to3.fixes.fix_ws_comma <https://docs.python.org/3/library/2to3.html#2to3fixer-ws_comma>`__
+- `lib2to3.fixes.fix_xreadlines <https://docs.python.org/3/library/2to3.html#2to3fixer-xreadlines>`__
 
 
 Fixers with no dependencies
