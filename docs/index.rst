@@ -42,7 +42,7 @@ code except for corner cases and are idempotent. Opt-in fixers are allowed to
 break these rules.
 
 Python 2 code from Python 2.6 and older will be upgraded to code that is
-compatible with Python 2.6, 2.7 and the latest release of Python 3. If code is
+compatible with Python 2.6, 2.7 and Python 3. If code is
 using a feature unique to Pyth on 2.7 it will not be downgraded to work with
 Python 2.6, e.g. ``dict.viewitems()`` usage will not be removed to make the code
 compatible with Python 2.6.
@@ -65,7 +65,8 @@ A note about handling text literals
   This is the simplest option if you only want to support Python 3.3 and above
   along with Python 2.
 - Alternatively, there is the ``--six-unicode`` flag which will wrap Unicode
-  literals with the six helper function ``six.u()``. This is useful if you want
+  literals with the six helper function ``six.u()`` using the
+  ``libmodernize.fixes.fix_unicode`` fixer. This is useful if you want
   to support Python 3.1 and Python 3.2 without bigger changes.
 - The last alternative is the ``--future-unicode`` flag which
   imports the ``unicode_literals`` from the ``__future__`` module.
@@ -88,10 +89,175 @@ A default fixer will be used if:
 Fixers requiring six
 ++++++++++++++++++++
 
-.. TODO List them and explain what they do
+The `six project`_ provides the ``six`` module which contains various tidbits in
+helping to support Python 2/3 code. All ``six``-related fixers assume the latest
+version of ``six`` is installed.
 
-See fixers listed in
-`libmodernize.fixes.six_fix_names <https://github.com/python-modernize/python-modernize/blob/master/libmodernize/fixes/__init__.py>`__.
+
+libmodernize.fixes.fix_basestring
+'''''''''''''''''''''''''''''''''
+
+Replaces all references to ``basestring`` with ``six.string_types``.
+
+
+libmodernize.fixes.fix_dict_six
+'''''''''''''''''''''''''''''''
+
+Fixes various methods on the ``dict`` type for getting all keys, values, or
+items. E.g.::
+
+    x.values()
+    x.itervalues()
+    x.viewvalues()
+
+becomes::
+
+    list(x.values())   # x.values()
+    six.itervalues(x)  # x.itervalues()
+    six.itervalues(x)  # x.viewvalues()
+
+Care is taken to only call ``list()`` when not in an iterating context
+(e.g. not the iterable for a ``for`` loop).
+
+
+libmodernize.fixes.fix_filter
+'''''''''''''''''''''''''''''
+
+When a call to ``filter()`` is discovered, ``from six.moves import filter`` is
+added to the module.
+
+
+libmodernize.fixes.fix_imports_six
+''''''''''''''''''''''''''''''''''
+
+Uses ``six.moves`` to fix various renamed modules, e.g.::
+
+    import ConfigParser
+    ConfigParser.ConfigParser()
+
+becomes::
+
+    import six.moves.configparser
+    six.moves.configparser.ConfigParser()
+
+The modules in Python 2 whose renaming in Python 3 is supported are:
+
+- ``__builtin__``
+- ``_winreg``
+- ``BaseHTTPServer``
+- ``CGIHTTPServer``
+- ``ConfigParser``
+- ``copy_reg``
+- ``Cookie``
+- ``cookielib``
+- ``cPickle``
+- ``Dialog``
+- ``dummy_thread``
+- ``FileDialog``
+- ``gdbm``
+- ``htmlentitydefs``
+- ``HTMLParser``
+- ``httplib``
+- ``Queue``
+- ``repr``
+- ``robotparser``
+- ``ScrolledText``
+- ``SimpleDialog``
+- ``SimpleHTTPServer``
+- ``SimpleXMLRPCServer``
+- ``SocketServer``
+- ``thread``
+- ``Tix``
+- ``tkColorChooser``
+- ``tkCommonDialog``
+- ``Tkconstants``
+- ``Tkdnd``
+- ``tkFileDialog``
+- ``tkFont``
+- ``Tkinter``
+- ``tkMessageBox``
+- ``tkSimpleDialog``
+- ``ttk``
+- ``xmlrpclib``
+
+
+libmodernize.fixes.fix_input_six
+''''''''''''''''''''''''''''''''
+
+Changes::
+
+    input(x)
+    raw_input(x)
+
+to::
+
+    from six.moves import input
+    eval(input(x))  # input(x)
+    input(x)        # raw_input(x)
+
+
+libmodernize.fixes.fix_int_long_tuple
+'''''''''''''''''''''''''''''''''''''
+
+Changes ``(int, long)``/``(long int)`` to ``six.integer_types``.
+
+
+libmodernize.fixes.fix_map
+''''''''''''''''''''''''''
+
+If a call to ``map()`` is discovered, ``from six.moves import map`` is added to
+the module.
+
+
+libmodernize.fixes.fix_metaclass
+''''''''''''''''''''''''''''''''
+
+Changes::
+
+    class Foo:
+        __metaclass__ = Meta
+
+to::
+
+    import six
+    class Foo(six.with_metaclass(Meta)):
+        pass
+
+
+libmodernize.fixes.fix_raise_six
+''''''''''''''''''''''''''''''''
+
+Changes ``raise E, V, T`` to ``six.reraise(E, V, T)``.
+
+
+libmodernize.fixes.fix_unicode_type
+'''''''''''''''''''''''''''''''''''
+
+Changes all reference of ``unicode`` to ``six.text_type``.
+
+
+libmodernize.fixes.fix_xrange_six
+'''''''''''''''''''''''''''''''''
+
+Changes::
+
+    w = xrange(x)
+    y = range(z)
+
+to::
+
+    from six.moves import range
+    w = range(x)
+    y = list(range(z))
+
+Care is taken not to call ``list()`` when ``range()`` is used as an iterating
+context.
+
+
+libmodernize.fixes.fix_zip
+''''''''''''''''''''''''''
+
+If ``zip()`` is called, ``from six.moves import zip`` is added to the module.
 
 
 ``2to3`` fixers
@@ -150,20 +316,9 @@ to specify the ``all`` fixer, e.g.::
 libmodernize.fixes.fix_open
 +++++++++++++++++++++++++++
 
-Transforms calls to the `open()` built-in to use `io.open()` instead.::
-
-    with open('some/path') as file:
-        ...
-
-becomes::
-
-    from io import open
-
-    with open('some/path') as file:
-        ...
-
-This fixer is opt-in because it changes what object is returned by a call to
-`open()`: ``io.TextIOWrapper``.
+When a call to ``open()`` is discovered, add ``from io import open`` at the top
+of the module. This fixer is opt-in because it changes what object is returned
+by a call to `open()`: ``io.TextIOWrapper``.
 
 
 Indices and tables
