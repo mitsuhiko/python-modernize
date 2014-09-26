@@ -69,7 +69,8 @@ A note about handling text literals
   ``libmodernize.fixes.fix_unicode`` fixer. This is useful if you want
   to support Python 3.1 and Python 3.2 without bigger changes.
 - The last alternative is the ``--future-unicode`` flag which
-  imports the ``unicode_literals`` from the ``__future__`` module.
+  imports the ``unicode_literals`` from the ``__future__`` module using the
+  ``libmodernize.fixes.fix_unicode_future`` fixer.
   This requires Python 2.6 and later, and will require that you
   mark bytestrings with ``b''`` and native strings in ``str('')``
   or something similar that survives the transformation.
@@ -296,12 +297,45 @@ transformations are Python 2 compatible.
 Fixers with no dependencies
 +++++++++++++++++++++++++++
 
-.. TODO List them and explain what they do
+libmodernize.fixes.fix_file
+'''''''''''''''''''''''''''
 
-All fixers found in
-`libmodernize.fixes <https://github.com/python-modernize/python-modernize/tree/master/libmodernize/fixes>`__
-but not listed somehow in
-`libmodernize.fixes.__init__ <https://github.com/python-modernize/python-modernize/blob/master/libmodernize/fixes/__init__.py>`__.
+Changes all calls to ``file()`` to ``open()``.
+
+
+libmodernize.fixes.fix_import
+'''''''''''''''''''''''''''''
+
+Changes a implicit relative import to explicit relative imports and adds
+``from __future__ import absolute_import``.
+
+
+libmodernize.fixes.fix_next
+'''''''''''''''''''''''''''
+
+Changes all method calls to ``x.next()`` to ``next(x)``.
+
+
+libmodernize.fixes.fix_print
+''''''''''''''''''''''''''''
+
+Changes all usage of the ``print`` statement to use the ``print()`` function
+and adds ``from __future__ import print_function``.
+
+
+libmodernize.fixes.fix_raise
+''''''''''''''''''''''''''''
+
+Changes comma-based ``raise`` statements from::
+
+    raise E, V
+    raise (((E, E1), E2), E3), V
+
+to::
+
+    raise E(V)  # raise E, V
+    raise E(V)  # raise (((E, E1), E2), E3), V
+
 
 
 Opt-in
