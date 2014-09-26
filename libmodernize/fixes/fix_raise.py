@@ -20,53 +20,11 @@ CAVEATS:
 # Author: Collin Winter, Armin Ronacher
 from __future__ import absolute_import
 
-# Local imports
-from lib2to3 import pytree, fixer_base
-from lib2to3.pgen2 import token
-from lib2to3.fixer_util import Name, Call, is_tuple
+from lib2to3.fixes import fix_raise
 
-class FixRaise(fixer_base.BaseFix):
-
-    BM_compatible = True
+class FixRaise(fix_raise.FixRaise):
+    # We don't want to match 3-argument raise, with a traceback;
+    # that is handled separately by fix_raise_six
     PATTERN = """
     raise_stmt< 'raise' exc=any [',' val=any] >
     """
-
-    def transform(self, node, results):
-        syms = self.syms
-
-        exc = results["exc"].clone()
-        if exc.type == token.STRING:
-            msg = "Python 3 does not support string exceptions"
-            self.cannot_convert(node, msg)
-            return
-
-        # Python 2 supports
-        #  raise ((((E1, E2), E3), E4), E5), V
-        # as a synonym for
-        #  raise E1, V
-        # Since Python 3 will not support this, we recurse down any tuple
-        # literals, always taking the first element.
-        if is_tuple(exc):
-            while is_tuple(exc):
-                # exc.children[1:-1] is the unparenthesized tuple
-                # exc.children[1].children[0] is the first element of the tuple
-                exc = exc.children[1].children[0].clone()
-            exc.prefix = u" "
-
-        if "val" not in results:
-            # One-argument raise
-            new = pytree.Node(syms.raise_stmt, [Name(u"raise"), exc])
-            new.prefix = node.prefix
-            return new
-
-        val = results["val"].clone()
-        if is_tuple(val):
-            args = [c.clone() for c in val.children[1:-1]]
-        else:
-            val.prefix = u""
-            args = [val]
-
-        return pytree.Node(syms.raise_stmt,
-                           [Name(u"raise"), Call(exc, args)],
-                           prefix=node.prefix)
