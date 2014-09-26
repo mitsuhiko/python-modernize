@@ -9,5 +9,6 @@ script: coverage run --branch --source=libmodernize setup.py test
 install:
   - pip install .
   - pip install 'coveralls==0.4.2'
+  - pip install 'six >= 1.8.0'
 after_success:
   coveralls
