@@ -1,4 +1,4 @@
-"""Fixer for it.next() -> advance_iterator(it)"""
+"""Fixer for it.next() -> next(it)"""
 from __future__ import absolute_import
 
 # Local imports
