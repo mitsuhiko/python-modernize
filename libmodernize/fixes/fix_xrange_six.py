@@ -3,7 +3,6 @@
 from __future__ import absolute_import
 
 from lib2to3 import fixer_base
-from lib2to3.fixer_util import Call, Name
 from lib2to3.fixes import fix_xrange
 from libmodernize import touch_import
 

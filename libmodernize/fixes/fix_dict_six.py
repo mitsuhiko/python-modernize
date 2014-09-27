@@ -2,9 +2,7 @@
 from __future__ import absolute_import
 
 # Local imports
-from lib2to3 import fixer_base
 from lib2to3 import fixer_util
-from lib2to3 import patcomp
 from lib2to3.fixes import fix_dict
 import libmodernize
 
