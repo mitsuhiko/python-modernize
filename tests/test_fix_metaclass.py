@@ -74,7 +74,7 @@ def test_metaclass_no_base_parens():
 def test_metaclass_single_base():
     check_on_input(*METACLASS_SINGLE_BASE)
 
-def test_metaclass_MANY_BASES():
+def test_metaclass_many_bases():
     check_on_input(*METACLASS_MANY_BASES)
 
 def test_metaclass_one_liner():
