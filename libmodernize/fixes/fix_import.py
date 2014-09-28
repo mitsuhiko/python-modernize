@@ -15,7 +15,8 @@ class FixImport(fix_import.FixImport):
         if self.skip:
             return
         # We're not interested in __future__ imports here
-        if node.type == syms.import_from and results['imp'].value == '__future__':
+        if node.type == syms.import_from \
+                and getattr(results['imp'], 'value', None) == '__future__':
             return
 
         # If there are any non-future imports, add absolute_import
