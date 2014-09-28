@@ -36,6 +36,7 @@ def check_on_input(input_content, expected_content, extra_flags = []):
                                      (which_check, this_input_content, output_content, expected_content))
 
         _check(input_content, "output check failed")
-        _check(expected_content, "idempotence check failed")
+        if input_content != expected_content:
+            _check(expected_content, "idempotence check failed")
     finally:
         shutil.rmtree(tmpdirname)
