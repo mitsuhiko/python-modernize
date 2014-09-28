@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 from lib2to3.fixes import fix_import
+from lib2to3.fixer_util import syms
 import libmodernize
 
 
@@ -11,8 +12,13 @@ class FixImport(fix_import.FixImport):
     run_order = 1
 
     def transform(self, node, results):
-        results = super(FixImport, self).transform(node, results)
-        if results is None:
+        if self.skip:
             return
+        # We're not interested in __future__ imports here
+        if node.type == syms.import_from \
+                and getattr(results['imp'], 'value', None) == '__future__':
+            return
+
+        # If there are any non-future imports, add absolute_import
         libmodernize.add_future(node, 'absolute_import')
-        return results
+        return super(FixImport, self).transform(node, results)
