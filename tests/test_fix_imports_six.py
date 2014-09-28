@@ -17,6 +17,7 @@ MOVED_MODULE = ("""\
 import ConfigParser
 ConfigParser.ConfigParser()
 """, """\
+from __future__ import absolute_import
 import six.moves.configparser
 six.moves.configparser.ConfigParser()
 """)
@@ -25,6 +26,7 @@ MOVED_MODULE_FROMLIST = ("""\
 from ConfigParser import ConfigParser
 ConfigParser()
 """, """\
+from __future__ import absolute_import
 from six.moves.configparser import ConfigParser
 ConfigParser()
 """)
