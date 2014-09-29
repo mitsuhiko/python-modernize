@@ -17,10 +17,6 @@ class FixIntLongTuple(fixer_base.BaseFix):
     """
 
     def transform(self, node, results):
-        if 'name' in results:
-            name = results['name']
-            name.replace(fixer_util.Name('int', prefix=name.prefix))
-        else:
-            touch_import(None, 'six', node)
-            pair = results['pair']
-            pair.replace(fixer_util.Name('six.integer_types', prefix=pair.prefix))
+        touch_import(None, 'six', node)
+        pair = results['pair']
+        pair.replace(fixer_util.Name('six.integer_types', prefix=pair.prefix))
