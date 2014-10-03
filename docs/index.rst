@@ -43,15 +43,14 @@ break these rules.
 
 Python 2 code from Python 2.6 and older will be upgraded to code that is
 compatible with Python 2.6, 2.7 and Python 3. If code is
-using a feature unique to Pyth on 2.7 it will not be downgraded to work with
+using a feature unique to Python 2.7 it will not be downgraded to work with
 Python 2.6, e.g. ``dict.viewitems()`` usage will not be removed to make the code
 compatible with Python 2.6.
 
 Some fixers rely on the latest release of the `six project`_ to work
 (see `Fixers requiring six`_).
 If you wish to turn off these fixers to avoid an external dependency on ``six``,
-then use the ``--nosix`` flag. It is **strongly** recommended, though, that you
-do not do this
+then use the ``--nosix`` flag.
 
 
 A note about handling text literals
@@ -81,10 +80,10 @@ Default
 
 A default fixer will be used if:
 
-- They are not listed in ``-x``/``--nofix``
-- They are listed in ``-f``/``--fix`` either explicitly or ``all`` is listed
-- They are dependent on the `six project`_ and ``--nosix`` was specified
+- It is not listed in ``-x``/``--nofix``
+- They are dependent on the `six project`_ and ``--nosix`` was **not** specified
   (see `Fixers requiring six`_)
+- It is listed in ``-f``/``--fix`` either explicitly or ``all`` is specified
 
 
 Fixers requiring six
@@ -113,9 +112,9 @@ items. E.g.::
 
 becomes::
 
-    list(x.values())   # x.values()
-    six.itervalues(x)  # x.itervalues()
-    six.itervalues(x)  # x.viewvalues()
+    list(x.values())
+    six.itervalues(x)
+    six.itervalues(x)
 
 Care is taken to only call ``list()`` when not in an iterating context
 (e.g. not the iterable for a ``for`` loop).
@@ -125,7 +124,8 @@ libmodernize.fixes.fix_filter
 '''''''''''''''''''''''''''''
 
 When a call to ``filter()`` is discovered, ``from six.moves import filter`` is
-added to the module.
+added to the module. Wrapping the use in a call to ``list()`` is done when
+necessary.
 
 
 libmodernize.fixes.fix_imports_six
@@ -193,21 +193,21 @@ Changes::
 to::
 
     from six.moves import input
-    eval(input(x))  # input(x)
-    input(x)        # raw_input(x)
+    eval(input(x))
+    input(x)
 
 
 libmodernize.fixes.fix_int_long_tuple
 '''''''''''''''''''''''''''''''''''''
 
-Changes ``(int, long)``/``(long int)`` to ``six.integer_types``.
+Changes ``(int, long)`` or ``(long int)`` to ``six.integer_types``.
 
 
 libmodernize.fixes.fix_map
 ''''''''''''''''''''''''''
 
 If a call to ``map()`` is discovered, ``from six.moves import map`` is added to
-the module.
+the module. Wrapping the use in a call to ``list()`` is done when necessary.
 
 
 libmodernize.fixes.fix_metaclass
@@ -251,7 +251,7 @@ to::
     w = range(x)
     y = list(range(z))
 
-Care is taken not to call ``list()`` when ``range()`` is used as an iterating
+Care is taken not to call ``list()`` when ``range()`` is used in an iterating
 context.
 
 
@@ -259,6 +259,7 @@ libmodernize.fixes.fix_zip
 ''''''''''''''''''''''''''
 
 If ``zip()`` is called, ``from six.moves import zip`` is added to the module.
+Wrapping the use in a call to ``list()`` is done when necessary.
 
 
 ``2to3`` fixers
@@ -306,7 +307,7 @@ Changes all calls to ``file()`` to ``open()``.
 libmodernize.fixes.fix_import
 '''''''''''''''''''''''''''''
 
-Changes a implicit relative import to explicit relative imports and adds
+Changes implicit relative imports to explicit relative imports and adds
 ``from __future__ import absolute_import``.
 
 
@@ -333,8 +334,8 @@ Changes comma-based ``raise`` statements from::
 
 to::
 
-    raise E(V)  # raise E, V
-    raise E(V)  # raise (((E, E1), E2), E3), V
+    raise E(V)
+    raise E(V)
 
 
 
@@ -351,8 +352,8 @@ libmodernize.fixes.fix_open
 +++++++++++++++++++++++++++
 
 When a call to ``open()`` is discovered, add ``from io import open`` at the top
-of the module. This fixer is opt-in because it changes what object is returned
-by a call to `open()`: ``io.TextIOWrapper``.
+of the module so as to use `io.open()`_ instead. This fixer is opt-in because it
+changes what object is returned by a call to ``open()``.
 
 
 Indices and tables
@@ -364,6 +365,7 @@ Indices and tables
 
 
 
-.. _project website: https://github.com/python-modernize/python-modernize
+.. _io.open(): https://docs.python.org/2.7/library/io.html#io.open
 .. _modernize: https://pypi.python.org/pypi/modernize
+.. _project website: https://github.com/python-modernize/python-modernize
 .. _six project: http://pythonhosted.org/six
