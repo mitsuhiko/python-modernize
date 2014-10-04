@@ -1,3 +1,10 @@
+"""\
+Python           _              _
+   _ __  ___  __| |___ _ _ _ _ (_)______
+  | '  \/ _ \/ _` / -_) '_| ' \| |_ / -_)
+  |_|_|_\___/\__,_\___|_| |_||_|_/__\___|\
+"""
+
 from __future__ import absolute_import, print_function
 
 import sys
@@ -7,8 +14,18 @@ import optparse
 from lib2to3.main import warn, StdoutRefactoringTool
 from lib2to3 import refactor
 
+from libmodernize import __version__
 from libmodernize.fixes import lib2to3_fix_names, six_fix_names, opt_in_fix_names
 
+usage = __doc__ + """\
+ %s
+
+Usage: modernize [options] file|dir ...
+""" % __version__
+
+def format_usage(usage):
+    """Method that doesn't output "Usage:" prefix"""
+    return usage
 
 def main(args=None):
     """Main program.
@@ -16,7 +33,9 @@ def main(args=None):
     Returns a suggested exit status (0, 1, 2).
     """
     # Set up option parser
-    parser = optparse.OptionParser(usage="modernize [options] file|dir ...")
+    parser = optparse.OptionParser(usage=usage,
+                                   version="modernize %s" % __version__)
+    parser.formatter.format_usage = format_usage
     parser.add_option("-d", "--doctests_only", action="store_true",
                       help="Fix up doctests only")
     parser.add_option("-f", "--fix", action="append", default=[],
