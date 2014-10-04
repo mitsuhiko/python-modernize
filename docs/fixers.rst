@@ -37,8 +37,7 @@ version of ``six`` is installed.
 
 .. 2to3fixer:: basestring
 
-   Replaces all references to ``basestring`` with ``six.string_types``.
-
+   Replaces all references to :func:`basestring` with :data:`six.string_types`.
 
 .. 2to3fixer:: dict_six
 
@@ -60,13 +59,13 @@ version of ``six`` is installed.
 
 .. 2to3fixer:: filter
 
-   When a call to ``filter()`` is discovered, ``from six.moves import filter`` is
+   When a call to :func:`filter <python2:filter>` is discovered, ``from six.moves import filter`` is
    added to the module. Wrapping the use in a call to ``list()`` is done when
    necessary.
 
 .. 2to3fixer:: imports_six
 
-   Uses ``six.moves`` to fix various renamed modules, e.g.::
+   Uses :mod:`six.moves` to fix various renamed modules, e.g.::
 
        import ConfigParser
        ConfigParser.ConfigParser()
@@ -131,11 +130,11 @@ version of ``six`` is installed.
 
 .. 2to3fixer:: int_long_tuple
 
-   Changes ``(int, long)`` or ``(long int)`` to ``six.integer_types``.
+   Changes ``(int, long)`` or ``(long int)`` to :data:`six.integer_types`.
 
 .. 2to3fixer:: map
 
-   If a call to ``map()`` is discovered, ``from six.moves import map`` is added to
+   If a call to :func:`map <python2:map>` is discovered, ``from six.moves import map`` is added to
    the module. Wrapping the use in a call to ``list()`` is done when necessary.
 
 .. 2to3fixer:: metaclass
@@ -150,6 +149,9 @@ version of ``six`` is installed.
        import six
        class Foo(six.with_metaclass(Meta)):
            pass
+    
+   .. seealso::
+      :func:`six.with_metaclass`
 
 .. 2to3fixer:: raise_six
 
@@ -157,7 +159,8 @@ version of ``six`` is installed.
 
 .. 2to3fixer:: unicode_type
 
-   Changes all reference of ``unicode`` to ``six.text_type``.
+   Changes all reference of :func:`unicode <python2:unicode>` to
+   :data:`six.text_type`.
 
 .. 2to3fixer:: xrange_six
 
@@ -177,7 +180,7 @@ version of ``six`` is installed.
 
 .. 2to3fixer:: zip
 
-   If ``zip()`` is called, ``from six.moves import zip`` is added to the module.
+   If :func:`zip <python2:zip>` is called, ``from six.moves import zip`` is added to the module.
    Wrapping the use in a call to ``list()`` is done when necessary.
 
 
@@ -188,37 +191,37 @@ Some `fixers from lib2to3 <https://docs.python.org/3/library/2to3.html#fixers>`_
 in Python's standard library are run by default unmodified as their
 transformations are Python 2 compatible.
 
-- :python:2to3fixer:`apply`
-- :python:2to3fixer:`except`
-- :python:2to3fixer:`exec`
-- :python:2to3fixer:`execfile`
-- :python:2to3fixer:`exitfunc`
-- :python:2to3fixer:`funcattrs`
-- :python:2to3fixer:`has_key`
-- :python:2to3fixer:`idioms`
-- :python:2to3fixer:`long`
-- :python:2to3fixer:`methodattrs`
-- :python:2to3fixer:`ne`
-- :python:2to3fixer:`numliterals`
-- :python:2to3fixer:`operator`
-- :python:2to3fixer:`paren`
-- :python:2to3fixer:`reduce`
-- :python:2to3fixer:`repr`
-- :python:2to3fixer:`set_literal`
-- :python:2to3fixer:`standarderror`
-- :python:2to3fixer:`sys_exc`
-- :python:2to3fixer:`throw`
-- :python:2to3fixer:`tuple_params`
-- :python:2to3fixer:`types`
-- :python:2to3fixer:`ws_comma`
-- :python:2to3fixer:`xreadlines`
+- :2to3fixer:`apply <python:apply>`
+- :2to3fixer:`except <python:except>`
+- :2to3fixer:`exec <python:exec>`
+- :2to3fixer:`execfile <python:execfile>`
+- :2to3fixer:`exitfunc <python:exitfunc>`
+- :2to3fixer:`funcattrs <python:funcattrs>`
+- :2to3fixer:`has_key <python:has_key>`
+- :2to3fixer:`idioms <python:idioms>`
+- :2to3fixer:`long <python:long>`
+- :2to3fixer:`methodattrs <python:methodattrs>`
+- :2to3fixer:`ne <python:ne>`
+- :2to3fixer:`numliterals <python:numliterals>`
+- :2to3fixer:`operator <python:operator>`
+- :2to3fixer:`paren <python:paren>`
+- :2to3fixer:`reduce <python:reduce>`
+- :2to3fixer:`repr <python:repr>`
+- :2to3fixer:`set_literal <python:set_literal>`
+- :2to3fixer:`standarderror <python:standarderror>`
+- :2to3fixer:`sys_exc <python:sys_exc>`
+- :2to3fixer:`throw <python:throw>`
+- :2to3fixer:`tuple_params <python:tuple_params>`
+- :2to3fixer:`types <python:types>`
+- :2to3fixer:`ws_comma <python:ws_comma>`
+- :2to3fixer:`xreadlines <python:xreadlines>`
 
 Fixers with no dependencies
 +++++++++++++++++++++++++++
 
 .. 2to3fixer:: file
 
-   Changes all calls to ``file()`` to ``open()``.
+   Changes all calls to :func:`file <python2:file>` to :func:`open <python2:open>`.
 
 .. 2to3fixer:: import
 
@@ -231,7 +234,7 @@ Fixers with no dependencies
 
 .. 2to3fixer:: print
 
-   Changes all usage of the ``print`` statement to use the ``print()`` function
+   Changes all usage of the ``print`` statement to use the :func:`print` function
    and adds ``from __future__ import print_function``.
 
 .. 2to3fixer:: raise
@@ -257,9 +260,8 @@ to specify the ``all`` fixer, e.g.::
 
 .. 2to3fixer:: open
 
-   When a call to ``open()`` is discovered, add ``from io import open`` at the top
-   of the module so as to use `io.open()`_ instead. This fixer is opt-in because it
+   When a call to :func:`open <python2:open>` is discovered, add ``from io import open`` at the top
+   of the module so as to use :func:`io.open` instead. This fixer is opt-in because it
    changes what object is returned by a call to ``open()``.
 
-.. _io.open(): https://docs.python.org/2.7/library/io.html#io.open
 .. _six project: http://pythonhosted.org/six
