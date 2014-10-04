@@ -93,173 +93,150 @@ The `six project`_ provides the ``six`` module which contains various tidbits in
 helping to support Python 2/3 code. All ``six``-related fixers assume the latest
 version of ``six`` is installed.
 
+.. 2to3fixer:: basestring
 
-libmodernize.fixes.fix_basestring
-'''''''''''''''''''''''''''''''''
-
-Replaces all references to ``basestring`` with ``six.string_types``.
+   Replaces all references to ``basestring`` with ``six.string_types``.
 
 
-libmodernize.fixes.fix_dict_six
-'''''''''''''''''''''''''''''''
+.. 2to3fixer:: dict_six
 
-Fixes various methods on the ``dict`` type for getting all keys, values, or
-items. E.g.::
+   Fixes various methods on the ``dict`` type for getting all keys, values, or
+   items. E.g.::
 
-    x.values()
-    x.itervalues()
-    x.viewvalues()
+       x.values()
+       x.itervalues()
+       x.viewvalues()
 
-becomes::
+   becomes::
 
-    list(x.values())
-    six.itervalues(x)
-    six.itervalues(x)
+       list(x.values())
+       six.itervalues(x)
+       six.itervalues(x)
 
-Care is taken to only call ``list()`` when not in an iterating context
-(e.g. not the iterable for a ``for`` loop).
+   Care is taken to only call ``list()`` when not in an iterating context
+   (e.g. not the iterable for a ``for`` loop).
 
+.. 2to3fixer:: filter
 
-libmodernize.fixes.fix_filter
-'''''''''''''''''''''''''''''
+   When a call to ``filter()`` is discovered, ``from six.moves import filter`` is
+   added to the module. Wrapping the use in a call to ``list()`` is done when
+   necessary.
 
-When a call to ``filter()`` is discovered, ``from six.moves import filter`` is
-added to the module. Wrapping the use in a call to ``list()`` is done when
-necessary.
+.. 2to3fixer:: imports_six
 
+   Uses ``six.moves`` to fix various renamed modules, e.g.::
 
-libmodernize.fixes.fix_imports_six
-''''''''''''''''''''''''''''''''''
+       import ConfigParser
+       ConfigParser.ConfigParser()
 
-Uses ``six.moves`` to fix various renamed modules, e.g.::
+   becomes::
 
-    import ConfigParser
-    ConfigParser.ConfigParser()
+       import six.moves.configparser
+       six.moves.configparser.ConfigParser()
 
-becomes::
+   The modules in Python 2 whose renaming in Python 3 is supported are:
 
-    import six.moves.configparser
-    six.moves.configparser.ConfigParser()
+   - ``__builtin__``
+   - ``_winreg``
+   - ``BaseHTTPServer``
+   - ``CGIHTTPServer``
+   - ``ConfigParser``
+   - ``copy_reg``
+   - ``Cookie``
+   - ``cookielib``
+   - ``cPickle``
+   - ``Dialog``
+   - ``dummy_thread``
+   - ``FileDialog``
+   - ``gdbm``
+   - ``htmlentitydefs``
+   - ``HTMLParser``
+   - ``httplib``
+   - ``Queue``
+   - ``repr``
+   - ``robotparser``
+   - ``ScrolledText``
+   - ``SimpleDialog``
+   - ``SimpleHTTPServer``
+   - ``SimpleXMLRPCServer``
+   - ``SocketServer``
+   - ``thread``
+   - ``Tix``
+   - ``tkColorChooser``
+   - ``tkCommonDialog``
+   - ``Tkconstants``
+   - ``Tkdnd``
+   - ``tkFileDialog``
+   - ``tkFont``
+   - ``Tkinter``
+   - ``tkMessageBox``
+   - ``tkSimpleDialog``
+   - ``ttk``
+   - ``xmlrpclib``
 
-The modules in Python 2 whose renaming in Python 3 is supported are:
+.. 2to3fixer:: input_six
 
-- ``__builtin__``
-- ``_winreg``
-- ``BaseHTTPServer``
-- ``CGIHTTPServer``
-- ``ConfigParser``
-- ``copy_reg``
-- ``Cookie``
-- ``cookielib``
-- ``cPickle``
-- ``Dialog``
-- ``dummy_thread``
-- ``FileDialog``
-- ``gdbm``
-- ``htmlentitydefs``
-- ``HTMLParser``
-- ``httplib``
-- ``Queue``
-- ``repr``
-- ``robotparser``
-- ``ScrolledText``
-- ``SimpleDialog``
-- ``SimpleHTTPServer``
-- ``SimpleXMLRPCServer``
-- ``SocketServer``
-- ``thread``
-- ``Tix``
-- ``tkColorChooser``
-- ``tkCommonDialog``
-- ``Tkconstants``
-- ``Tkdnd``
-- ``tkFileDialog``
-- ``tkFont``
-- ``Tkinter``
-- ``tkMessageBox``
-- ``tkSimpleDialog``
-- ``ttk``
-- ``xmlrpclib``
+   Changes::
 
+       input(x)
+       raw_input(x)
 
-libmodernize.fixes.fix_input_six
-''''''''''''''''''''''''''''''''
+   to::
 
-Changes::
+       from six.moves import input
+       eval(input(x))
+       input(x)
 
-    input(x)
-    raw_input(x)
+.. 2to3fixer:: int_long_tuple
 
-to::
+   Changes ``(int, long)`` or ``(long int)`` to ``six.integer_types``.
 
-    from six.moves import input
-    eval(input(x))
-    input(x)
+.. 2to3fixer:: map
 
+   If a call to ``map()`` is discovered, ``from six.moves import map`` is added to
+   the module. Wrapping the use in a call to ``list()`` is done when necessary.
 
-libmodernize.fixes.fix_int_long_tuple
-'''''''''''''''''''''''''''''''''''''
+.. 2to3fixer:: metaclass
 
-Changes ``(int, long)`` or ``(long int)`` to ``six.integer_types``.
+   Changes::
 
+       class Foo:
+           __metaclass__ = Meta
 
-libmodernize.fixes.fix_map
-''''''''''''''''''''''''''
+   to::
 
-If a call to ``map()`` is discovered, ``from six.moves import map`` is added to
-the module. Wrapping the use in a call to ``list()`` is done when necessary.
+       import six
+       class Foo(six.with_metaclass(Meta)):
+           pass
 
+.. 2to3fixer:: raise_six
 
-libmodernize.fixes.fix_metaclass
-''''''''''''''''''''''''''''''''
+   Changes ``raise E, V, T`` to ``six.reraise(E, V, T)``.
 
-Changes::
+.. 2to3fixer:: unicode_type
 
-    class Foo:
-        __metaclass__ = Meta
+   Changes all reference of ``unicode`` to ``six.text_type``.
 
-to::
+.. 2to3fixer:: xrange_six
 
-    import six
-    class Foo(six.with_metaclass(Meta)):
-        pass
+   Changes::
 
+       w = xrange(x)
+       y = range(z)
 
-libmodernize.fixes.fix_raise_six
-''''''''''''''''''''''''''''''''
+   to::
 
-Changes ``raise E, V, T`` to ``six.reraise(E, V, T)``.
+       from six.moves import range
+       w = range(x)
+       y = list(range(z))
 
+   Care is taken not to call ``list()`` when ``range()`` is used in an iterating
+   context.
 
-libmodernize.fixes.fix_unicode_type
-'''''''''''''''''''''''''''''''''''
+.. 2to3fixer:: zip
 
-Changes all reference of ``unicode`` to ``six.text_type``.
-
-
-libmodernize.fixes.fix_xrange_six
-'''''''''''''''''''''''''''''''''
-
-Changes::
-
-    w = xrange(x)
-    y = range(z)
-
-to::
-
-    from six.moves import range
-    w = range(x)
-    y = list(range(z))
-
-Care is taken not to call ``list()`` when ``range()`` is used in an iterating
-context.
-
-
-libmodernize.fixes.fix_zip
-''''''''''''''''''''''''''
-
-If ``zip()`` is called, ``from six.moves import zip`` is added to the module.
-Wrapping the use in a call to ``list()`` is done when necessary.
+   If ``zip()`` is called, ``from six.moves import zip`` is added to the module.
+   Wrapping the use in a call to ``list()`` is done when necessary.
 
 
 ``2to3`` fixers
@@ -298,45 +275,35 @@ transformations are Python 2 compatible.
 Fixers with no dependencies
 +++++++++++++++++++++++++++
 
-libmodernize.fixes.fix_file
-'''''''''''''''''''''''''''
+.. 2to3fixer:: file
 
-Changes all calls to ``file()`` to ``open()``.
+   Changes all calls to ``file()`` to ``open()``.
 
+.. 2to3fixer:: import
 
-libmodernize.fixes.fix_import
-'''''''''''''''''''''''''''''
+   Changes implicit relative imports to explicit relative imports and adds
+   ``from __future__ import absolute_import``.
 
-Changes implicit relative imports to explicit relative imports and adds
-``from __future__ import absolute_import``.
+.. 2to3fixer:: next
 
+   Changes all method calls to ``x.next()`` to ``next(x)``.
 
-libmodernize.fixes.fix_next
-'''''''''''''''''''''''''''
+.. 2to3fixer:: print
 
-Changes all method calls to ``x.next()`` to ``next(x)``.
+   Changes all usage of the ``print`` statement to use the ``print()`` function
+   and adds ``from __future__ import print_function``.
 
+.. 2to3fixer:: raise
 
-libmodernize.fixes.fix_print
-''''''''''''''''''''''''''''
+   Changes comma-based ``raise`` statements from::
 
-Changes all usage of the ``print`` statement to use the ``print()`` function
-and adds ``from __future__ import print_function``.
+       raise E, V
+       raise (((E, E1), E2), E3), V
 
+   to::
 
-libmodernize.fixes.fix_raise
-''''''''''''''''''''''''''''
-
-Changes comma-based ``raise`` statements from::
-
-    raise E, V
-    raise (((E, E1), E2), E3), V
-
-to::
-
-    raise E(V)
-    raise E(V)
-
+       raise E(V)
+       raise E(V)
 
 
 Opt-in
@@ -347,13 +314,11 @@ to specify the ``all`` fixer, e.g.::
 
     python-modernize -f all -f libmodernize.fixes.fix_open
 
+.. 2to3fixer:: open
 
-libmodernize.fixes.fix_open
-+++++++++++++++++++++++++++
-
-When a call to ``open()`` is discovered, add ``from io import open`` at the top
-of the module so as to use `io.open()`_ instead. This fixer is opt-in because it
-changes what object is returned by a call to ``open()``.
+   When a call to ``open()`` is discovered, add ``from io import open`` at the top
+   of the module so as to use `io.open()`_ instead. This fixer is opt-in because it
+   changes what object is returned by a call to ``open()``.
 
 
 Indices and tables
