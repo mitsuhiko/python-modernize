@@ -1,3 +1,10 @@
+"""\
+Python           _              _
+   _ __  ___  __| |___ _ _ _ _ (_)______
+  | '  \/ _ \/ _` / -_) '_| ' \| |_ / -_)
+  |_|_|_\___/\__,_\___|_| |_||_|_/__\___|\
+"""
+
 from __future__ import absolute_import, print_function
 
 import sys
@@ -10,9 +17,10 @@ from lib2to3 import refactor
 from libmodernize import __version__
 from libmodernize.fixes import lib2to3_fix_names, six_fix_names, opt_in_fix_names
 
-usage = """\
-modernize %s
-usage: modernize [options] file|dir ...
+usage = __doc__ + """\
+ %s
+
+Usage: modernize [options] file|dir ...
 """ % __version__
 
 def format_usage(usage):
