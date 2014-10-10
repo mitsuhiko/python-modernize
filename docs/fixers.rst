@@ -16,6 +16,10 @@ Some fixers rely on the latest release of the `six project`_ to work
 If you wish to turn off these fixers to avoid an external dependency on ``six``,
 then use the ``--nosix`` flag.
 
+Fixers use the API defined by 2to3. For details of how this works, and how to
+implement your own fixers, see `Extending 2to3 with your own fixers, at
+python3porting.com <http://python3porting.com/fixers.html>`_.
+
 
 Default
 -------
