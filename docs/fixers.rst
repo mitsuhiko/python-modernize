@@ -16,6 +16,10 @@ Some fixers rely on the latest release of the `six project`_ to work
 If you wish to turn off these fixers to avoid an external dependency on ``six``,
 then use the ``--nosix`` flag.
 
+Fixers use the API defined by 2to3. For details of how this works, and how to
+implement your own fixers, see `Extending 2to3 with your own fixers, at
+python3porting.com <http://python3porting.com/fixers.html>`_.
+
 
 Default
 -------
@@ -38,6 +42,8 @@ version of ``six`` is installed.
 .. 2to3fixer:: basestring
 
    Replaces all references to :func:`basestring` with :data:`six.string_types`.
+
+   .. versionadded:: 0.4
 
 .. 2to3fixer:: dict_six
 
@@ -115,6 +121,8 @@ version of ``six`` is installed.
    - ``ttk``
    - ``xmlrpclib``
 
+   .. versionadded:: 0.4
+
 .. 2to3fixer:: input_six
 
    Changes::
@@ -128,9 +136,13 @@ version of ``six`` is installed.
        eval(input(x))
        input(x)
 
+   .. versionadded:: 0.4
+
 .. 2to3fixer:: int_long_tuple
 
    Changes ``(int, long)`` or ``(long int)`` to :data:`six.integer_types`.
+
+   .. versionadded:: 0.4
 
 .. 2to3fixer:: map
 
@@ -223,10 +235,14 @@ Fixers with no dependencies
 
    Changes all calls to :func:`file <python2:file>` to :func:`open <python2:open>`.
 
+   .. versionadded:: 0.4
+
 .. 2to3fixer:: import
 
    Changes implicit relative imports to explicit relative imports and adds
    ``from __future__ import absolute_import``.
+
+   .. versionadded:: 0.4
 
 .. 2to3fixer:: next
 
@@ -263,5 +279,7 @@ to specify the ``all`` fixer, e.g.::
    When a call to :func:`open <python2:open>` is discovered, add ``from io import open`` at the top
    of the module so as to use :func:`io.open` instead. This fixer is opt-in because it
    changes what object is returned by a call to ``open()``.
+
+   .. versionadded:: 0.4
 
 .. _six project: http://pythonhosted.org/six
