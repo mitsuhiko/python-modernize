@@ -136,7 +136,7 @@ def main(args=None):
             try:
                 rt.refactor(args, options.write, options.doctests_only,
                             options.processes)
-            except refactor.MultiprocessingUnsupported:
+            except refactor.MultiprocessingUnsupported: # pragma: no cover
                 assert options.processes > 1
                 print("Sorry, -j isn't supported on this platform.",
                       file=sys.stderr)
