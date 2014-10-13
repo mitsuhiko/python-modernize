@@ -38,7 +38,7 @@ def check_future_import(node):
         return set([node.value])
     elif node.type == token.NAME:
         return set([node.value])
-    else:
+    else:  # pragma: no cover
         assert 0, "strange import"
 
 def add_future(node, symbol):
