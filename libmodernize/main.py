@@ -37,32 +37,32 @@ def main(args=None):
                                    version="modernize %s" % __version__)
     parser.formatter.format_usage = format_usage
     parser.add_option("-d", "--doctests_only", action="store_true",
-                      help="Fix up doctests only")
+                      help="Fix up doctests only.")
     parser.add_option("-f", "--fix", action="append", default=[],
                       help="Each FIX specifies a transformation; '-f default' includes default fixers.")
     parser.add_option("-j", "--processes", action="store", default=1,
-                      type="int", help="Run 2to3 concurrently")
+                      type="int", help="Run 2to3 concurrently.")
     parser.add_option("-x", "--nofix", action="append", default=[],
                       help="Prevent a fixer from being run.")
     parser.add_option("-l", "--list-fixes", action="store_true",
-                      help="List available transformations")
+                      help="List available transformations.")
     parser.add_option("-p", "--print-function", action="store_true",
-                      help="Modify the grammar so that print() is a function")
+                      help="Modify the grammar so that print() is a function.")
     parser.add_option("-v", "--verbose", action="store_true",
-                      help="More verbose logging")
+                      help="Show more verbose logging.")
     parser.add_option("--no-diffs", action="store_true",
-                      help="Don't show diffs of the refactoring")
+                      help="Don't show diffs of the refactoring.")
     parser.add_option("-w", "--write", action="store_true",
-                      help="Write back modified files")
+                      help="Write back modified files.")
     parser.add_option("-n", "--nobackups", action="store_true", default=False,
                       help="Don't write backups for modified files.")
     parser.add_option("--six-unicode", action="store_true", default=False,
-                      help="Wrap unicode literals in six.u()")
+                      help="Wrap unicode literals in six.u().")
     parser.add_option("--future-unicode", action="store_true", default=False,
                       help="Use 'from __future__ import unicode_literals'"
                       "(only useful for Python 2.6+).")
     parser.add_option("--no-six", action="store_true", default=False,
-                      help="Exclude fixes that depend on the six package")
+                      help="Exclude fixes that depend on the six package.")
 
     fixer_pkg = 'libmodernize.fixes'
     avail_fixes = set(refactor.get_fixers_from_package(fixer_pkg))
@@ -73,9 +73,9 @@ def main(args=None):
     flags = {}
     options, args = parser.parse_args(args)
     if not options.write and options.no_diffs:
-        warn("not writing files and not printing diffs; that's not very useful")
+        warn("Not writing files and not printing diffs; that's not very useful.")
     if not options.write and options.nobackups:
-        parser.error("Can't use -n without -w")
+        parser.error("Can't use '-n' without '-w'.")
     if options.list_fixes:
         print("Available transformations for the -f/--fix option:")
         for fixname in sorted(avail_fixes):
