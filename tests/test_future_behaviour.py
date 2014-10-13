@@ -6,6 +6,8 @@ import os
 import shutil
 from libmodernize.main import main as modernize_main
 
+from utils import check_on_input
+
 SINGLE_PRINT_CONTENT = """
 print 'world'
 """
@@ -92,3 +94,25 @@ def test_two_files_on_single_run():
 def test_problematic_file():
     # ON this one I get crash
     _check_on_input(PROBLEMATIC_CONTENT)
+
+FUTURE_IMPORT_AS = ("""\
+from __future__ import print_function as pf
+print("abc")
+""", """\
+from __future__ import print_function as pf
+print("abc")
+""")
+
+FUTURE_IMPORT_AS_MULTIPLE = ("""\
+from __future__ import print_function as pf, division as dv
+print("abc")
+""", """\
+from __future__ import print_function as pf, division as dv
+print("abc")
+""")
+
+def test_future_import_as():
+    check_on_input(*FUTURE_IMPORT_AS)
+
+def test_future_import_as_multiple():
+    check_on_input(*FUTURE_IMPORT_AS_MULTIPLE)
