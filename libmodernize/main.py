@@ -39,7 +39,7 @@ def main(args=None):
     parser.add_option("-d", "--doctests_only", action="store_true",
                       help="Fix up doctests only")
     parser.add_option("-f", "--fix", action="append", default=[],
-                      help="Each FIX specifies a transformation; default: all")
+                      help="Each FIX specifies a transformation; '-f default' includes default fixers.")
     parser.add_option("-j", "--processes", action="store", default=1,
                       type="int", help="Run 2to3 concurrently")
     parser.add_option("-x", "--nofix", action="append", default=[],
@@ -115,13 +115,13 @@ def main(args=None):
         unwanted_fixes.update(six_fix_names)
     explicit = set()
     if options.fix:
-        all_present = False
+        default_present = False
         for fix in options.fix:
-            if fix == "all":
-                all_present = True
+            if fix == "default":
+                default_present = True
             else:
                 explicit.add(fix)
-        requested = default_fixes.union(explicit) if all_present else explicit
+        requested = default_fixes.union(explicit) if default_present else explicit
     else:
         requested = default_fixes
     fixer_names = requested.difference(unwanted_fixes)
