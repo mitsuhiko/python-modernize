@@ -147,7 +147,7 @@ version of ``six`` is installed.
 
 .. 2to3fixer:: int_long_tuple
 
-   Changes ``(int, long)`` or ``(long int)`` to :data:`six.integer_types`.
+   Changes ``(int, long)`` or ``(long, int)`` to :data:`six.integer_types`.
 
    .. versionadded:: 0.4
 
