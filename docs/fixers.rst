@@ -23,8 +23,8 @@ implement your own fixers, see `Extending 2to3 with your own fixers, at
 python3porting.com <http://python3porting.com/fixers.html>`_.
 
 
-Defaults
---------
+Default
+-------
 
 A default fixer will be enabled when:
 
