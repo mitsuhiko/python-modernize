@@ -21,15 +21,20 @@ implement your own fixers, see `Extending 2to3 with your own fixers, at
 python3porting.com <http://python3porting.com/fixers.html>`_.
 
 
-Default
--------
+Defaults
+--------
 
-A default fixer will be used if:
+A default fixer will be enabled when:
 
-- It is not listed in ``-x``/``--nofix``
-- They are dependent on the `six project`_ and ``--nosix`` was **not** specified
-  (see `Fixers requiring six`_)
-- It is listed in ``-f``/``--fix`` either explicitly or ``all`` is specified
+- Either no ``-f``/``--fix`` options are used, or ``-f default``/``--fix=default``
+  is used, or the fixer is listed explicitly in an ``-f``/``--fix`` option; and
+- The fixer is not listed in an ``-x``/``--nofix`` option; and
+- For fixers that are dependent on the `six project`_, ``--nosix`` is *not* specified
+  (see `Fixers requiring six`_).
+
+The ``-x``/``--nofix`` and ``--nosix`` options always override fixers specified
+using ``-f``/``--fix``. The ``--six-unicode`` and ``--future-unicode`` options
+also disable fixers that are not applicable for those options.
 
 
 Fixers requiring six
@@ -270,9 +275,9 @@ Opt-in
 ------
 
 To specify an opt-in fixer while also running all the default fixers, make sure
-to specify the ``all`` fixer, e.g.::
+to specify the ``-f default`` or ``--fix=default`` option, e.g.::
 
-    python-modernize -f all -f libmodernize.fixes.fix_open
+    python-modernize -f default -f libmodernize.fixes.fix_open
 
 .. 2to3fixer:: open
 
