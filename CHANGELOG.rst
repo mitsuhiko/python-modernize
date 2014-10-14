@@ -1,5 +1,5 @@
-Version 0.4 (unreleased)
-========================
+Version 0.4
+===========
 
 Changes since 0.3:
 
