@@ -2,14 +2,16 @@ Fixers
 ======
 
 Fixers come in two types: Default_ and Opt-in_. Default fixers should not break
-code except for corner cases and are idempotent. Opt-in fixers are allowed to
-break these rules.
+code except for corner cases, and are idempotent (applying them more than once
+to given source code will make no changes after the first application). Opt-in
+fixers are allowed to break these rules.
 
 Python 2 code from Python 2.6 and older will be upgraded to code that is
-compatible with Python 2.6, 2.7 and Python 3. If code is
-using a feature unique to Python 2.7 it will not be downgraded to work with
-Python 2.6, e.g. ``dict.viewitems()`` usage will not be removed to make the code
-compatible with Python 2.6.
+compatible with Python 2.6, 2.7, and Python 3.
+
+If code is using a feature unique to Python 2.7, it will not be downgraded to
+work with Python 2.6. For example, ``dict.viewitems()`` usage will not be
+removed to make the code compatible with Python 2.6.
 
 Some fixers rely on the latest release of the `six project`_ to work
 (see `Fixers requiring six`_).
