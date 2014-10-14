@@ -17,7 +17,8 @@ Changes since 0.3:
 * New fixer for imports of renamed standard library modules, using
   ``six.moves``.
 * New fixer to add ``from __future__ import absolute_import`` to all
-  files with imports.
+  files with imports, and change any implicit relative imports to explicit
+  (see PEP 328).
 * New fixer for ``input()`` and ``raw_input()``, changed to ``eval(input())``
   and ``input()`` respectively.
 * New fixer for ``file()``, changed to ``open()``. There is also an
