@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from lib2to3.fixes import fix_imports
 
 
