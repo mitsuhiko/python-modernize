@@ -4,6 +4,13 @@
        _ __  ___  __| |___ _ _ _ _ (_)______ 
       | '  \/ _ \/ _` / -_) '_| ' \| |_ / -_)
       |_|_|_\___/\__,_\___|_| |_||_|_/__\___|
+      
+**Maintainedship Abandoned**
+
+This repository is not under active development.  The canonical location is
+at https://github.com/python-modernize/python-modernize
+
+----
 
 This library is a very thin wrapper around ``lib2to3`` to utilize it
 to make Python 2 code more modern with the intention of eventually
